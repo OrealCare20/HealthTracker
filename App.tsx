@@ -1,118 +1,104 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, { useEffect, useState } from 'react';
+import MainRoute from './src/route/MainRoute';
+import Route from './src/route/Route';
+import { NavigationContainer } from '@react-navigation/native';
+import { get_async_data, set_async_data } from './src/Helper/AppHelper';
+import crashlytics from '@react-native-firebase/crashlytics';
+import SplashScreen from 'react-native-splash-screen';
+import { useAppOpenAd } from 'react-native-google-mobile-ads';
+import { APPOPEN_AD_ID } from './src/Helper/AdManager';
+import { View } from 'react-native';
+import { lang } from './global';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const App = () => {
+  const [firstTime, setfirstTime] = useState(true);
+  const [splashClosed, setsplashClosed] = useState(false);
+  const { isLoaded, isClosed, load, show, error } = useAppOpenAd(APPOPEN_AD_ID, {
+    requestNonPersonalizedAdsOnly: true,
+  });
+  const [loadAttempts, setLoadAttempts] = useState(0);
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+  useEffect(() => {
+    if (!isLoaded && loadAttempts < 2) {
+      load();
+      console.log('loadAttempts', loadAttempts);
+      setLoadAttempts(loadAttempts + 1);
+      console.log(error)
+    }
+  }, [load, isLoaded, loadAttempts]);
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+  useEffect(() => {
+    (async () => {
+      if (isClosed) {
+        setsplashClosed(true);
+        SplashScreen.hide();
+      }
+    })();
+  }, [isClosed]);
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  useEffect(() => {
+    (async () => {
+      if (isLoaded) {
+        console.log('Ad Loaded inside App.js');
+        show();
+        setsplashClosed(true);
+      } else {
+        console.log('Ad not Loaded inside App.js', error);
+        if (error != undefined || loadAttempts >= 2) {
+          setsplashClosed(true);
+          SplashScreen.hide();
+        }
+      }
+    })();
+  }, [isLoaded]);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  useEffect(() => {
+    if (error != undefined && loadAttempts >= 2) {
+      console.log('app opn error', error);
+      SplashScreen.hide();
+      setsplashClosed(true);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    (async () => {
+      // crashlytics().log('App crashes');
+      let onboard = await get_async_data('on_board');
+      let rate = await get_async_data('alreadyrate');
+      if (rate && rate == 'rated') {
+        await set_async_data('alreadyrate', 'rated');
+      } else {
+        await set_async_data('alreadyrate', '');
+      }
+      if (onboard != null) {
+        setfirstTime(false);
+      }
+    })();
+
+  }, []);
+
+  useEffect(() => {
+    displayContent();
+  }, [splashClosed]);
+
+  const displayContent = () => {
+    if (splashClosed == true) {
+      if (firstTime == false) {
+        return <MainRoute></MainRoute>;
+      } else {
+        return <Route></Route>;
+      }
+    } else {
+      return <View style={{ flex: 1, backgroundColor: '#fff' }}></View>;
+    }
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <NavigationContainer>{displayContent()}</NavigationContainer>
+    </>
   );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+};
 
 export default App;
