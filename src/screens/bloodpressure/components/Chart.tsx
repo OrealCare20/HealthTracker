@@ -21,45 +21,45 @@ function Chart(props: any) {
   const render = false;
   useEffect(() => {
     (async () => {
-      let chartData = await get_chart_data('bp');
+      let chartData:any = await get_chart_data('bp');
       let dataArr = [];
       let limit =
-        chartData.data.diastolic_pressure.length > 5
+        chartData.diastolic_pressure.length > 5
           ? 5
-          : chartData.data.diastolic_pressure.length;
+          : chartData.diastolic_pressure.length;
       for (let index = 0; index < limit; index++) {
         let color = '#F13F07';
         if (
-          (chartData.data.systolic_pressure[index] >= 140 &&
-            chartData.data.systolic_pressure[index] <= 180) ||
-          (chartData.data.diastolic_pressure[index] >= 90 &&
-            chartData.data.diastolic_pressure[index] <= 120)
+          (chartData.systolic_pressure[index] >= 140 &&
+            chartData.systolic_pressure[index] <= 180) ||
+          (chartData.diastolic_pressure[index] >= 90 &&
+            chartData.diastolic_pressure[index] <= 120)
         ) {
           color = '#EC7F00'; // Hyper. Stage-2
         } else if (
-          (chartData.data.systolic_pressure[index] >= 130 &&
-            chartData.data.systolic_pressure[index] <= 139) ||
-          (chartData.data.diastolic_pressure[index] >= 80 &&
-            chartData.data.diastolic_pressure[index] <= 89)
+          (chartData.systolic_pressure[index] >= 130 &&
+            chartData.systolic_pressure[index] <= 139) ||
+          (chartData.diastolic_pressure[index] >= 80 &&
+            chartData.diastolic_pressure[index] <= 89)
         ) {
           color = '#FF9A24'; // Hyper. Stage-1
         } else if (
-          chartData.data.systolic_pressure[index] >= 120 &&
-          chartData.data.systolic_pressure[index] <= 129 &&
-          chartData.data.diastolic_pressure[index] >= 60 &&
-          chartData.data.diastolic_pressure[index] <= 79
+          chartData.systolic_pressure[index] >= 120 &&
+          chartData.systolic_pressure[index] <= 129 &&
+          chartData.diastolic_pressure[index] >= 60 &&
+          chartData.diastolic_pressure[index] <= 79
         ) {
           color = '#FEB056'; // Elevated
         } else if (
-          (chartData.data.systolic_pressure[index] >= 90 &&
-          chartData.data.systolic_pressure[index] <= 119 )&&
-          (chartData.data.diastolic_pressure[index] >= 60 &&
-          chartData.data.diastolic_pressure[index] <= 79)
+          (chartData.systolic_pressure[index] >= 90 &&
+          chartData.systolic_pressure[index] <= 119 )&&
+          (chartData.diastolic_pressure[index] >= 60 &&
+          chartData.diastolic_pressure[index] <= 79)
         ) {
           color = '#2EB100'; // Normal
         } else if (
-          chartData.data.systolic_pressure[index] > 80 ||
-          chartData.data.diastolic_pressure[index] > 120
+          chartData.systolic_pressure[index] > 80 ||
+          chartData.diastolic_pressure[index] > 120
         ) {
           color = '#3980FF'; //Hypertension
         } else {
@@ -70,13 +70,13 @@ function Chart(props: any) {
         let stack = {
           stacks: [
             {
-              value: chartData.data.diastolic_pressure[index],
+              value: parseInt(chartData.diastolic_pressure[index]),
               color: 'transparent',
             },
             {
               value:
-                chartData.data.systolic_pressure[index] -
-                chartData.data.diastolic_pressure[index],
+              parseInt(chartData.systolic_pressure[index]) -
+              parseInt(chartData.diastolic_pressure[index]),
               color: color,
               marginBottom: 2,
             },

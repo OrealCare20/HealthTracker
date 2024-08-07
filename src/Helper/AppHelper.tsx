@@ -27,16 +27,16 @@ export const duration = [
   'Other',
 ];
 
-export const REPORT_TYPES = {
-  temperature: 'temperature',
-  weight: 'weight',
-  medicine: 'medicine',
-  aic: 'aic',
-  sugar: 'sugar',
-  bp: 'bp',
-  bmi: 'bmi',
-  heartRate: 'heart_rate',
-};
+// export const REPORT_TYPES = {
+//   temperature: 'temperature',
+//   weight: 'weight',
+//   medicine: 'medicine',
+//   aic: 'aic',
+//   sugar: 'sugar',
+//   bp: 'bp',
+//   bmi: 'bmi',
+//   heartRate: 'heart_rate',
+// };
 
 export const set_async_data = async (name: any, value: any) => {
   try {
@@ -78,44 +78,104 @@ export const dashboard = async () => {
   return res;
 };
 export const get_report = async (reportType: string) => {
-  let userID = await get_async_data('user_id');
-  console.log(userID);
-  const resposne = await fetch(GET_REPORT, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Requested-With': 'XMLHttpRequest',
-    },
-    body: JSON.stringify({ user_id: userID, report_type: reportType }),
-  });
-  let res = await resposne.json();
-  return res.data;
+  let storedData: any = await AsyncStorage.getItem('report');
+  storedData = JSON.parse(storedData);
+  let reportData: any = [];
+  if (storedData) {
+    if (reportType == 'bp') {
+      storedData.map((data: any, index: any) => {
+        if (data.report_type == 'bp') {
+          reportData.push(data);
+        }
+      });
+      return reportData;
+    }
+
+    if (reportType == 'sugar') {
+      storedData.map((data: any, index: any) => {
+        if (data.report_type == 'sugar') {
+          reportData.push(data);
+        }
+      });
+      return reportData;
+    }
+
+    if (reportType == 'bmi') {
+      storedData.map((data: any, index: any) => {
+        if (data.report_type == 'bmi') {
+          reportData.push(data);
+        }
+      });
+      return reportData;
+    }
+  }
+  return reportData;
 };
 export const filter_report = async () => {
-  let userID = await get_async_data('user_id');
-  const resposne = await fetch(FILTER_REPORT, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Requested-With': 'XMLHttpRequest',
-    },
-    body: JSON.stringify({ user_id: userID, report_type: 'bp' }),
+  let filteredData: any = {
+    avg_24: {},
+    Average: {},
+    minimum: {},
+    maximum: {},
+    Last_Insert_data: {},
+  }
+  let bpData: any = [];
+  let data: any = await AsyncStorage.getItem('report');
+  data = JSON.parse(data);
+
+  data.map((data: any, index: any) => {
+    if (data.report_type == 'bp') {
+      bpData.push(data);
+    }
   });
-  let res = await resposne.json();
-  return res.data;
+  // populate latest entered record
+  filteredData.Last_Insert_data = bpData[bpData.length - 1];
+  // populate minimum entered record
+  filteredData.minimum = bpData[0];
+  // populate maximum entered record
+  filteredData.maximum = bpData[bpData.length - 1];
+  // populate average bp record
+  filteredData.Average = avg_bp_record(bpData);
+  return filteredData;
 };
-export const get_pdf_report = async (data: any) => {
-  const resposne = await fetch(GET_REPORT, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Requested-With': 'XMLHttpRequest',
-    },
-    body: JSON.stringify(data),
+
+// filter out latest BP
+const avg_bp_record = (records: any) => {
+  if (records.length === 0) return { averageSystolic: 0, averageDiastolic: 0 };
+
+  let totalSystolic = 0;
+  let totalDiastolic = 0;
+  let totalPulse = 0;
+
+  records.forEach((record: any) => {
+    totalSystolic += parseInt(record.systolic_pressure, 10);
+    totalDiastolic += parseInt(record.diastolic_pressure, 10);
+    totalPulse += parseInt(record.pulse, 10);
   });
-  let res = await resposne.json();
-  return res.data;
-};
+
+  const averageSystolic = totalSystolic / records.length;
+  const averageDiastolic = totalDiastolic / records.length;
+  const averagePulse = totalPulse / records.length;
+
+  return {
+    systolic_pressure: averageSystolic.toFixed(0),
+    diastolic_pressure: averageDiastolic.toFixed(0),
+    pulse: averagePulse.toFixed(2),
+  };
+}
+
+// export const get_pdf_report = async (data: any) => {
+//   const resposne = await fetch(GET_REPORT, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'X-Requested-With': 'XMLHttpRequest',
+//     },
+//     body: JSON.stringify(data),
+//   });
+//   let res = await resposne.json();
+//   return res.data;
+// };
 export const add_report = async (postData: any) => {
   try {
     const storedData = await AsyncStorage.getItem('report');
@@ -134,34 +194,59 @@ export const add_report = async (postData: any) => {
 };
 
 export const get_chart_data = async (reportType: string) => {
-  let record = await get_async_data('report');
-  let data = [];
+  let record: any = await get_async_data('report');
   if (record) {
-    try {
-      record.forEach((entry: any) => {
-        if(entry.report_type == 'bp') {
-          data.push(entry);
-        }
-      })
-    } catch(e) { 
-      console.log('error while mapping over the object', e);
-    }
+    // record = JSON.parse(record);
+    return arrange_data_for_graph(record, reportType);
   }
-  // let userID = await get_async_data('user_id');
-  // const resposne = await fetch(CHART_DATA, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     'X-Requested-With': 'XMLHttpRequest',
-  //   },
-  //   body: JSON.stringify({ user_id: userID, report_type: reportType }),
-  // });
-  // let res = await resposne.json();
-  // return res;
 };
 
-export const arrange_data_for_graph = (data: any) => {
+const arrange_data_for_graph = (record: any, reportType: any) => {
+  let data: any = {};
+  let systolic_pressure: any = [];
+  let diastolic_pressure: any = [];
+  let sugar: any = [];
+  let label: any = [];
+  let result: any = [];
+  let bmi: any = [];
 
+  if (reportType == 'bp') {
+    record.forEach((entry: any) => {
+      if (entry.report_type == 'bp') {
+        systolic_pressure.push(entry.systolic_pressure);
+        diastolic_pressure.push(entry.diastolic_pressure);
+        label.push(entry.datetime)
+      }
+    });
+    data['systolic_pressure'] = systolic_pressure;
+    data['diastolic_pressure'] = diastolic_pressure;
+    data['label'] = label;
+    return data;
+  }
+  if (reportType == 'sugar') {
+    record.forEach((entry: any) => {
+      if (entry.report_type == 'sugar') {
+        sugar.push(entry.sugar_concentration);
+        label.push(entry.datetime);
+      }
+    });
+    data['data'] = sugar;
+    data['label'] = label;
+    return data;
+  }
+  if (reportType == 'bmi') {
+    record.forEach((entry: any) => {
+      if (entry.report_type == 'bmi') {
+        bmi.push(entry.bmi);
+        label.push(entry.datetime);
+        result.push(entry.status);
+      }
+    });
+    data['data'] = bmi;
+    data['label'] = label;
+    data['result'] = result;
+    return data;
+  }
 }
 
 export const getMonthName = (dateString: any) => {

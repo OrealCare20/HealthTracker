@@ -43,7 +43,7 @@ const AddNewBloodSugarScreen = ({navigation}: {navigation: any}) => {
     (async () => {
       try {
         let lan = await lang();
-        let response = await get_report(REPORT_TYPES.sugar);
+        let response = await get_report('sugar');
         setapidata(response);
         setlanguage(lan);
       } catch (e) {

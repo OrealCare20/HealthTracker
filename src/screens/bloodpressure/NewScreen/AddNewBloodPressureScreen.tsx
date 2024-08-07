@@ -43,7 +43,7 @@ const AddNewBloodPressureScreen = ({navigation}: {navigation: any}) => {
   });
   const [filterdata, setfilterdata] = useState({
     avg_24: {},
-    avg: {},
+    Average: {},
     minimum: {},
     maximum: {},
     Last_Insert_data: {},
@@ -75,11 +75,13 @@ const AddNewBloodPressureScreen = ({navigation}: {navigation: any}) => {
         setcard(displayCard(filterdata?.avg_24));
         break;
       case 'Average':
-        setcarddata(filterdata.avg);
-        setcard(displayCard(filterdata?.avg));
+        console.log('avg sleted', filterdata)
+        setcarddata(filterdata.Average);
+        setcard(displayCard(filterdata?.Average));
         break;
       case 'Latest':
-        setcarddata(filterdata.Last_Insert_data);
+        // console.log('LATEST', filterdata);
+        setcarddata(filterdata);
         setcard(displayCard(filterdata?.Last_Insert_data));
         break;
       case 'Max':
@@ -130,7 +132,7 @@ const AddNewBloodPressureScreen = ({navigation}: {navigation: any}) => {
             ]}>
             <Text style={styles.cardTitle}>Pulse</Text>
             <View style={styles.cardrow}>
-              <Text style={styles.cardedesc}>{selected == 'Latest' ? data.pulse : data.pulse_pressure}</Text>
+              <Text style={styles.cardedesc}>{selected == 'Latest' ? data.pulse : 70}</Text>
               <Text style={styles.unit}>BPM</Text>
             </View>
           </View>

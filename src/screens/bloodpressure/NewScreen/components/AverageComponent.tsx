@@ -11,7 +11,7 @@ const {width} = Dimensions.get('window');
 const AverageComponent = (props: any) => {
 
   const options = () => {
-    let data = ['avg_24', 'Average', 'Latest', 'Max', 'Min'];
+    let data = ['Average', 'Latest', 'Max', 'Min'];
     let record = data.map((item, index) => {
       return (
         <TouchableOpacity
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 14,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
     flexWrap: 'wrap',
   },
   btn: {

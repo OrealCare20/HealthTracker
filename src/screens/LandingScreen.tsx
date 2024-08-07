@@ -33,6 +33,7 @@ const LandingScreen = ({navigation}: {navigation: any}) => {
   useEffect(() => {
     (async () => {
       // await set_async_data('hide_ad', 'unhide');
+      await set_async_data('hide_ad', 'hide');
       const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       if (timeZone != null || timeZone != undefined) {
         let area = timeZone.split('/');

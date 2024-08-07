@@ -45,7 +45,6 @@ const BloodSugarChart = (props: any) => {
       try {
         let adSeen = await get_async_data('line_chart_bs_ad');
         let sugarChart = await get_chart_data('sugar');
-        console.log(sugarChart);
         if (sugarChart.data.length < 1) {
           let date = moment().format('YYYY-MM-DD H:mm:ss');
           useApiData({
@@ -98,7 +97,6 @@ const BloodSugarChart = (props: any) => {
     if (length > 1) {
       setdataArray(array.reverse());
     } else {
-      console.log('data array', array);
       setdataArray(array);
     }
   };
