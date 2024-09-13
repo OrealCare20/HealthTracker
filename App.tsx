@@ -4,6 +4,7 @@ import Route from './src/route/Route';
 import { NavigationContainer } from '@react-navigation/native';
 import { get_async_data, set_async_data } from './src/Helper/AppHelper';
 import crashlytics from '@react-native-firebase/crashlytics';
+import SystemNavigationBar from 'react-native-system-navigation-bar';
 import SplashScreen from 'react-native-splash-screen';
 import { useAppOpenAd } from 'react-native-google-mobile-ads';
 import { APPOPEN_AD_ID } from './src/Helper/AdManager';
@@ -30,6 +31,7 @@ const App = () => {
   useEffect(() => {
     (async () => {
       if (isClosed) {
+        await set_async_data('hide_ad', 'hide');
         setsplashClosed(true);
         SplashScreen.hide();
       }
@@ -39,7 +41,7 @@ const App = () => {
   useEffect(() => {
     (async () => {
       if (isLoaded) {
-        console.log('Ad Loaded inside App.js');
+        // console.log('Ad Loaded inside App.js');
         show();
         setsplashClosed(true);
       } else {
@@ -51,7 +53,7 @@ const App = () => {
       }
     })();
   }, [isLoaded]);
-
+                                                                
   useEffect(() => {
     if (error != undefined && loadAttempts >= 2) {
       console.log('app opn error', error);
@@ -62,6 +64,7 @@ const App = () => {
 
   useEffect(() => {
     (async () => {
+      SystemNavigationBar.stickyImmersive();
       // crashlytics().log('App crashes');
       let onboard = await get_async_data('on_board');
       let rate = await get_async_data('alreadyrate');

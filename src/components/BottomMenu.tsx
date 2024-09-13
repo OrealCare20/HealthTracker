@@ -7,10 +7,10 @@ import {
   Image,
   Text,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import QuitAppModal from './QuitAppModal';
-import {Banner} from '../Helper/AdManager';
-const {width} = Dimensions.get('window');
+import { Banner } from '../Helper/AdManager';
+const { width } = Dimensions.get('window');
 const ICON_WIDTH = width / 5 - 40;
 const ICON_RATIO = ICON_WIDTH / 112;
 
@@ -34,6 +34,9 @@ const BottomMenu = (props: any) => {
       case 'tracker':
         settab('tracker');
         break;
+      case 'calorie':
+        settab('calorie');
+        break;
       case 'insight':
         settab('insight');
         break;
@@ -54,12 +57,12 @@ const BottomMenu = (props: any) => {
           <Image style={styles.icon} source={tab == 'home' ? require('../assets/menu/home_selected.png') : require('../assets/menu/home_unselected.png')} />
           <Text style={styles.menuTxt}>Home</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
-          onPress={() => changeTab('tracker')}
+          onPress={() => changeTab('calorie')}
           style={styles.column}>
-          <Image style={styles.icon} source={tab == 'tracker' ? require('../assets/menu/tracker_selected.png') : require('../assets/menu/tracker_unselected.png')} />
-          <Text style={styles.menuTxt}>Tracker</Text>
+          <Image style={styles.icon} source={tab == 'calorie' ? require('../assets/menu/tracker_selected.png') : require('../assets/menu/tracker_unselected.png')} />
+          <Text style={styles.menuTxt}>Cal Assitant</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -85,6 +88,9 @@ const BottomMenu = (props: any) => {
       settab('home');
     }
     if (tabmenu == 'tracker') {
+      settab('tracker');
+    }
+    if (tabmenu == 'calorie') {
       settab('tracker');
     }
     if (tabmenu == 'health') {

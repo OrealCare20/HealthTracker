@@ -13,6 +13,8 @@ import {useIsFocused} from '@react-navigation/native';
 import analytics from '@react-native-firebase/analytics';
 const {width, height} = Dimensions.get('screen');
 import {lang} from '../../../../global';
+// import CalorieButton from '../../../components/CalorieButton';
+// import { calorieButtonArray } from '../../../Helper/AppHelper';
 
 const Dashboard = (props: any) => {
   const isFocused = useIsFocused();
@@ -49,6 +51,7 @@ const Dashboard = (props: any) => {
         <Text style={styles.heading}>{langstr?.main.homeTitle}</Text>
       </View>
       <DashboardContent navigate={props.navigateScreen} />
+      {/* <CalorieButton data={calorieButtonArray} active={()=>{}} /> */}
       <Recomandations setselectedmenu={props.setselectedmenu} putScreen={''} />
     </ScrollView>
   );
@@ -63,10 +66,12 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
   heading: {
-    color: '#141417',
-    fontSize: 20,
+    color: '#2E2E2E',
+    fontSize: 26,
     left: '20%',
-    fontFamily: 'Montserrat-Bold'
+    marginTop: 0,
+    marginBottom: 15,
+    fontFamily: 'Roboto'
   },
   cloudImg: {
     width: 30.51,

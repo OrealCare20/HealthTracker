@@ -8,21 +8,24 @@ import {
   Dimensions,
   NativeModules,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
-import {get_async_data} from '../../../../Helper/AppHelper';
-import {lang} from '../../../../../global';
-import {NativeAd100} from '../../../../Helper/NativeAd100';
+import { get_async_data } from '../../../../Helper/AppHelper';
+import { lang } from '../../../../../global';
+import { NativeAd100 } from '../../../../Helper/NativeAd100';
 import LottieView from 'lottie-react-native';
-import {NATIVE_AD_ID_ONE} from '../../../../Helper/AdManager';
+import { NATIVE_AD_ID_ONE } from '../../../../Helper/AdManager';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const heartcardWidth = width - 30;
 const heartcardRatio = heartcardWidth / 1304;
 
+const heartcardIcon = width - 200;
+const heartcardIconRatio = heartcardIcon / 651;
+
 const colCardWidth = width / 2 - 23;
-const colCardRatio = colCardWidth / 624;
+const colCardRatio = colCardWidth / 606;
 
 const DashboardContent = (props: any) => {
   const [recentbp, setrecentbp] = useState(null);
@@ -40,7 +43,7 @@ const DashboardContent = (props: any) => {
       heartRate: '',
       cardCommit: '',
     },
-    main: {more: ''},
+    main: { more: '' },
   });
   const [cardtitleone, setcardtitleone] = useState('Blood Pressure');
   const [cardtitletwo, setcardtitletwo] = useState('Blood Sugar');
@@ -87,36 +90,34 @@ const DashboardContent = (props: any) => {
       <View
         style={[
           styles.dashboardCard,
-          {backgroundColor: '#dbedff', borderRadius: 20, overflow: 'hidden'},
+          { backgroundColor: '#FBE0E3', borderRadius: 20 },
         ]}>
-        <ImageBackground
-          style={styles.dashboardCard}
-          source={require('../../../../assets/images/dashboard_icons_new/heartrate2.png')}>
-          <TouchableOpacity
-            style={styles.measurebtn}
-            onPress={() => NativeModules.ActivityStarter.startActivity()}>
-            <Text style={{fontSize: 16, color: '#000', fontFamily: 'Raleway-Bold'}}>
-              {measure}
-            </Text>
-          </TouchableOpacity>
+        <Image style={styles.heartImage} source={require('../../../../assets/images/dashboard_icons_new/heartrate2.png')} />
 
-          <View style={styles.heartInnerContainer}>
-            <Text style={styles.badgeFont}>Last Report</Text>
-            <Text style={styles.badgeFont}>History</Text>
-          </View>
-        </ImageBackground>
+        <TouchableOpacity
+          style={styles.measurebtn}
+          onPress={() => NativeModules.ActivityStarter.startActivity()}>
+          <Text style={{ fontSize: 16, color: '#2E2E2E', fontFamily: 'Montserrat-Bold' }}>
+            {measure}
+          </Text>
+        </TouchableOpacity>
       </View>
 
-      <View style={styles.header}>
+      <View style={styles.heartInnerContainer}>
+        <Text style={styles.badgeFont}>Last Report</Text>
+        <Text style={[styles.badgeFont, {fontFamily: 'Montserrat-SemiBold'}]}>History</Text>
+      </View>
+
+      {/* <View style={styles.header}>
         <Image
           style={styles.icon}
           source={require('../../../../assets/icons/recomandations.png')}
         />
         <Text style={styles.title}>{str}</Text>
-      </View>
+      </View> */}
 
-      <View style={styles.multipleCardContainer}>
-        <View style={{backgroundColor: '#ffdbdb', borderRadius: 12}}>
+      <View style={[styles.multipleCardContainer, {marginTop: 17}]}>
+        <View style={{backgroundColor: '#DADDFF', borderRadius: 12}}>
           <TouchableOpacity onPress={() => props.navigate('BloodPressure')}>
             <ImageBackground
               style={styles.colCard}
@@ -126,7 +127,7 @@ const DashboardContent = (props: any) => {
                 numberOfLines={2}
                 style={[
                   styles.cardtitle,
-                  {marginLeft: 13, marginVertical: 15, maxWidth: '92%'},
+                  {marginLeft: 13, marginVertical: 15, maxWidth: '75%'},
                 ]}>
                 {cardtitleone}
               </Text>
@@ -134,17 +135,17 @@ const DashboardContent = (props: any) => {
           </TouchableOpacity>
         </View>
 
-        <View style={{backgroundColor: '#D7E9FE', borderRadius: 12}}>
+        <View style={{backgroundColor: '#D0F3F9', borderRadius: 12}}>
           <TouchableOpacity onPress={() => props.navigate('BloodSugar')}>
             <ImageBackground
               style={styles.colCard}
               source={require('../../../../assets/images/dashboard_icons_new/bloodsugar_new.png')}>
               <Text
                 ellipsizeMode="tail"
-                numberOfLines={1}
+                numberOfLines={2}
                 style={[
                   styles.cardtitle,
-                  {marginLeft: 13, marginVertical: 15, maxWidth: '92%'},
+                  {marginLeft: 13, marginVertical: 15, maxWidth: '60%'},
                 ]}>
                 {cardtitletwo}
               </Text>
@@ -153,12 +154,12 @@ const DashboardContent = (props: any) => {
         </View>
       </View>
 
-      <View style={styles.nativeContainer}>
-        {/* <NativeAd100 /> */}
-      </View>
+      {/* <View style={styles.nativeContainer}>
+        <NativeAd100 />
+      </View> */}
 
       <View style={styles.multipleCardContainer}>
-        <View style={{backgroundColor: '#D0F2F9', borderRadius: 12}}>
+        <View style={{backgroundColor: '#D0F3F9', borderRadius: 12}}>
           <TouchableOpacity onPress={() => props.navigate('TemperatureScreen')}>
             <ImageBackground
               style={styles.colCard}
@@ -176,7 +177,7 @@ const DashboardContent = (props: any) => {
           </TouchableOpacity>
         </View>
 
-        <View style={{backgroundColor: '#D7E9FE', borderRadius: 12}}>
+        <View style={{backgroundColor: '#F9E9C5', borderRadius: 12}}>
           <TouchableOpacity onPress={() => props.navigate('BmiRecordScreen')}>
             <ImageBackground
               style={styles.colCard}
@@ -194,7 +195,7 @@ const DashboardContent = (props: any) => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </View >
   );
 };
 
@@ -233,46 +234,43 @@ const styles = StyleSheet.create({
     width: width * 0.91,
     alignSelf: 'center',
     marginBottom: 15,
-    backgroundColor: '#fff',
+    backgroundColor: '#e6e6e6',
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#EBEBEC',
   },
   multipleCardContainer: {
-    width: width * 0.92,
+    width: width * 0.91,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 13,
-    marginTop: 5,
+    marginBottom: 10,
+    // marginTop: 17,
   },
   colCard: {
     width: colCardWidth,
-    height: 636 * colCardRatio,
+    height: 532 * colCardRatio,
     alignItems: 'flex-start',
   },
   dashboardCard: {
     width: heartcardWidth,
-    height: 636 * heartcardRatio,
-    resizeMode: 'cover',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    height: 396 * heartcardRatio,
   },
   heartInnerContainer: {
-    width: '91%',
-    backgroundColor: `rgba(255,255,255, 0.9)`,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
+    width: '92%',
+    backgroundColor: '#F3F3F3',
+    paddingVertical: 13,
+    paddingHorizontal: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    bottom: 15,
+    marginTop: 11,
     borderRadius: 10,
   },
   cardtitle: {
     color: '#2E2E2E',
-    fontSize: 16,
-    fontFamily: 'Raleway-Medium',
+    fontSize: 18,
+    fontFamily: 'Raleway-Bold',
   },
   result: {
     color: '#fff',
@@ -283,19 +281,25 @@ const styles = StyleSheet.create({
   },
   measurebtn: {
     position: 'absolute',
-    right: '5%',
-    top: '33%',
-    width: '45%',
+    right: '10%',
+    top: '30%',
+    width: '42%',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
     borderRadius: 50,
-    paddingVertical: 10,
-    elevation: 4,
+    paddingVertical: 12,
+    elevation: 2,
   },
   badgeFont: {
     fontSize: 14,
-    fontFamily: 'Raleway-SemiBold',
-    color: '#717171',
+    fontFamily: 'Montserrat-Medium',
+    color: '#2E2E2E',
   },
+  heartImage: {
+    position: 'absolute',
+    top: -40,
+    width: heartcardIcon,
+    height: 651 * heartcardIconRatio,
+  }
 });
 export default DashboardContent;

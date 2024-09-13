@@ -191,7 +191,7 @@ const BmiResultScreen = ({navigation}: {navigation: any}) => {
             loader={loader}
           />
           <View style={styles.NativeAd}>
-            {/* <NativeAd150 adId={NATIVE_AD_ID_ONE} /> */}
+            <NativeAd150 adId={NATIVE_AD_ID_ONE} />
           </View>
           <PieChartAdComponent
             navigation={navigation}
@@ -201,7 +201,7 @@ const BmiResultScreen = ({navigation}: {navigation: any}) => {
           />
 
           <View style={[styles.NativeAd]}>
-            {/* <NativeAd150 adId={NATIVE_AD_ID_TWO} /> */}
+            <NativeAd150 adId={NATIVE_AD_ID_TWO} />
           </View>
           <View style={styles.recomandation}>
             <Recomandations

@@ -233,7 +233,7 @@ const ResultScreen = ({navigation}: {navigation: any}) => {
             rate={rate}
           />
           <View style={styles.NativeAd}>
-            {/* <NativeAd150 adId={NATIVE_AD_ID_ONE}/> */}
+            <NativeAd150 adId={NATIVE_AD_ID_ONE}/>
           </View>
           <PieChartAdComponent
             navigation={navigation}
@@ -243,7 +243,7 @@ const ResultScreen = ({navigation}: {navigation: any}) => {
             rate={rate}
           />
           <View style={styles.NativeAd}>
-            {/* <NativeAd150 adId={NATIVE_AD_ID_TWO}/> */}
+            <NativeAd150 adId={NATIVE_AD_ID_TWO}/>
           </View>
           <View style={styles.recomandation}>
             <Recomandations

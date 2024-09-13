@@ -61,7 +61,7 @@ const TemperatureScreen = ({navigation}: {navigation: any}) => {
   useEffect(() => {
     (async () => {
       try {
-        await analytics().logEvent('add_temperature_screen');
+        await analytics().logEvent('add_blood_sugar');
         let lan = await lang();
         setlanguage(lan);
       } catch (e) {
@@ -268,7 +268,7 @@ const TemperatureScreen = ({navigation}: {navigation: any}) => {
           <Text
             style={{
               textAlign: 'center',
-              fontFamily: 'Montserrat-Bold',
+              fontWeight: '700',
               fontSize: 18,
               color: '#2E2E2E',
               marginVertical: 15,
@@ -329,7 +329,7 @@ const styles = StyleSheet.create({
   input: {
     color: '#2E2E2E',
     fontSize: 50,
-    fontFamily: 'Montserrat-Bold',
+    fontWeight: '700',
     paddingHorizontal: 15,
   },
 });

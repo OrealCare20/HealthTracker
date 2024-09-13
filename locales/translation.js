@@ -1,5 +1,4 @@
-import {data} from '../globalData';
-import {dashboard} from '../src/Helper/AppHelper';
+import { data } from '../globalData';
 export const translation = {
   en: {
     boarding: {
@@ -22,6 +21,7 @@ export const translation = {
     main: {
       homeTitle: 'Home',
       trackerTitle: 'Tracker',
+      calorieTitle: 'Calorie Counter',
       healthTitle: 'Health Info',
       settingTitle: 'Settings',
       profile: 'Profile',
@@ -52,6 +52,8 @@ export const translation = {
       height: 'Height',
       calculatebmi: 'Calculate BMI',
       bridgetext: 'Please add your record to unlock statistical information',
+      calorieTabTitle: 'You have comsumed',
+      total: 'in total'
     },
     dashobard: {
       cardCommit: 'Health Diary',
@@ -127,6 +129,12 @@ export const translation = {
       health: 'Health',
       profile: 'Profile',
     },
+    calDesc: {
+      title: 'Add Description',
+      subTitle: 'Add your meal below',
+      submit: 'Submit',
+      placeholder: 'Please write down your meal'
+    }
   },
   es: {
     boarding: {
@@ -149,6 +157,7 @@ export const translation = {
     main: {
       homeTitle: 'Inicio',
       trackerTitle: 'Seguimiento',
+      calorieTitle: 'Contador de Calorías',
       healthTitle: 'Información de Salud',
       settingTitle: 'Ajustes',
       profile: 'Perfil',
@@ -178,8 +187,9 @@ export const translation = {
       weight: 'Peso',
       height: 'Altura',
       calculatebmi: 'Calcular IMC',
-      bridgetext:
-        'Por favor, añade tu registro para desbloquear la información estadística.',
+      bridgetext: 'Por favor, añade tu registro para desbloquear la información estadística.',
+      calorieTabTitle: 'Has consumido',
+      total: 'en total'
     },
     dashobard: {
       cardCommit: 'Diario de Salud',
@@ -257,6 +267,12 @@ export const translation = {
       health: 'Salud',
       profile: 'Perfil',
     },
+    calDesc: {
+      title: 'Agregar Descripción',
+      subTitle: 'Agrega tu comida a continuación',
+      submit: 'Enviar',
+      placeholder: 'Por favor, escribe tu comida'
+    }
   },
   tr: {
     boarding: {
@@ -280,6 +296,7 @@ export const translation = {
       homeTitle: 'Ana Sayfa',
       trackerTitle: 'İzleyici',
       healthTitle: 'Sağlık Bilgileri',
+      calorieTitle: 'Kalori Sayacı',
       settingTitle: 'Ayarlar',
       profile: 'Profil',
       more: 'Daha Fazla',
@@ -310,6 +327,8 @@ export const translation = {
       calculatebmi: 'Vücut Kitle İndeksi Hesapla',
       bridgetext:
         'Lütfen istatistiksel bilgileri açmak için kaydınızı ekleyin.',
+      calorieTabTitle: 'Tükettiğiniz',
+      total: 'toplamda'
     },
     dashobard: {
       cardCommit: 'Sağlık Günlüğü',
@@ -387,6 +406,12 @@ export const translation = {
       health: 'Sağlık',
       profile: 'Profil',
     },
+    calDesc: {
+      title: 'Açıklama Ekle',
+      subTitle: 'Yemeğinizi aşağıya ekleyin',
+      submit: 'Gönder',
+      placeholder: 'Lütfen yemeğinizi yazın'
+    }
   },
   ar: {
     boarding: {
@@ -410,6 +435,7 @@ export const translation = {
       homeTitle: 'الرئيسية',
       trackerTitle: 'المتتبع',
       healthTitle: 'معلومات الصحة',
+      calorieTitle: 'عداد السعرات الحرارية',
       settingTitle: 'الإعدادات',
       profile: 'الملف الشخصي',
       more: 'المزيد',
@@ -439,6 +465,8 @@ export const translation = {
       height: 'الطول',
       calculatebmi: 'حساب مؤشر كتلة الجسم',
       bridgetext: 'يرجى إضافة سجلك لفتح المعلومات الإحصائية',
+      calorieTabTitle: 'لقد استهلكت',
+      total: 'إجمالاً'
     },
     dashobard: {
       cardCommit: 'مفكرة صحية',
@@ -513,6 +541,12 @@ export const translation = {
       health: 'الصحة',
       profile: 'الملف الشخصي',
     },
+    calDesc: {
+      title: 'إضافة وصف',
+      subTitle: 'أضف وجبتك أدناه',
+      submit: 'إرسال',
+      placeholder: 'يرجى كتابة وجبتك'
+    }
   },
   gr: {
     boarding: {
@@ -536,6 +570,7 @@ export const translation = {
       homeTitle: 'Startseite',
       trackerTitle: 'Tracker',
       healthTitle: 'Gesundheitsinfo',
+      calorieTitle: 'Kalorienzähler',
       settingTitle: 'Einstellungen',
       profile: 'Profil',
       more: 'Mehr',
@@ -566,6 +601,8 @@ export const translation = {
       calculatebmi: 'BMI berechnen',
       bridgetext:
         'Bitte fügen Sie Ihren Datensatz hinzu, um statistische Informationen freizuschalten.',
+      calorieTabTitle: 'Sie haben konsumiert',
+      total: 'insgesamt'
     },
     dashobard: {
       cardCommit: 'Gesundheitstagebuch',
@@ -644,6 +681,12 @@ export const translation = {
       health: 'Gesundheit',
       profile: 'Profil',
     },
+    calDesc: {
+      title: 'Beschreibung hinzufügen',
+      subTitle: 'Fügen Sie Ihre Mahlzeit unten hinzu',
+      submit: 'Absenden',
+      placeholder: 'Bitte schreiben Sie Ihre Mahlzeit auf'
+    }
   },
   fr: {
     boarding: {
@@ -667,6 +710,7 @@ export const translation = {
       homeTitle: 'Accueil',
       trackerTitle: 'Suivi',
       healthTitle: 'Infos santé',
+      calorieTitle: 'Compteur de Calories',
       settingTitle: 'Paramètres',
       profile: 'Profil',
       more: 'Plus',
@@ -697,6 +741,8 @@ export const translation = {
       calculatebmi: "Calculer l'IMC",
       bridgetext:
         'Veuillez ajouter votre enregistrement pour débloquer les informations statistiques.',
+      calorieTabTitle: 'Vous avez consommé',
+      total: 'au total'
     },
     dashobard: {
       cardCommit: 'Journal de Santé',
@@ -775,6 +821,12 @@ export const translation = {
       health: 'Santé',
       profile: 'Profil',
     },
+    calDesc: {
+      title: 'Ajouter une Description',
+      subTitle: 'Ajoutez votre repas ci-dessous',
+      submit: 'Soumettre',
+      placeholder: 'Veuillez écrire votre repas'
+    }
   },
   it: {
     boarding: {
@@ -798,6 +850,7 @@ export const translation = {
       homeTitle: 'Home',
       trackerTitle: 'Tracciatore',
       healthTitle: 'Info Salute',
+      calorieTitle: 'Contatore di Calorie',
       settingTitle: 'Impostazioni',
       profile: 'Profilo',
       more: 'Altro',
@@ -828,6 +881,8 @@ export const translation = {
       calculatebmi: 'Calcola BMI',
       bridgetext:
         'Per favore, aggiungi il tuo record per sbloccare le informazioni statistiche.',
+      calorieTabTitle: 'Hai consumato',
+      total: 'in totale'
     },
     dashobard: {
       cardCommit: 'Diario della Salute',
@@ -905,6 +960,12 @@ export const translation = {
       health: 'Salute',
       profile: 'Profilo',
     },
+    calDesc: {
+      title: 'Aggiungi Descrizione',
+      subTitle: 'Aggiungi il tuo pasto qui sotto',
+      submit: 'Invia',
+      placeholder: 'Per favore, scrivi il tuo pasto'
+    }
   },
   ru: {
     boarding: {
@@ -926,7 +987,8 @@ export const translation = {
     },
     main: {
       homeTitle: 'Главная',
-      rackerTitle: 'Трекер',
+      trackerTitle: 'Трекер',
+      calorieTitle: 'Счётчик калорий',
       healthTitle: 'Информация о здоровье',
       settingTitle: 'Настройки',
       profile: 'Профиль',
@@ -958,6 +1020,8 @@ export const translation = {
       calculatebmi: 'Рассчитать ИМТ',
       bridgetext:
         'Пожалуйста, добавьте свою запись, чтобы разблокировать статистическую информацию.',
+      calorieTabTitle: 'Вы потребили',
+      total: 'всего'
     },
     dashobard: {
       cardCommit: 'Дневник здоровья',
@@ -1035,6 +1099,12 @@ export const translation = {
       health: 'Здоровье',
       profile: 'Профиль',
     },
+    calDesc: {
+      title: 'Добавить описание',
+      subTitle: 'Добавьте своё блюдо ниже',
+      submit: 'Отправить',
+      placeholder: 'Пожалуйста, запишите своё блюдо'
+    }
   },
   jp: {
     boarding: {
@@ -1058,6 +1128,7 @@ export const translation = {
       homeTitle: 'ホーム',
       trackerTile: 'トラッカー',
       healthTitle: '健康情報',
+      calorieTitle: 'カロリーカウンター',
       settingTitle: '設定',
       profile: 'プロフィール',
       more: 'もっと見る',
@@ -1088,6 +1159,8 @@ export const translation = {
       calculatebmi: 'BMIを計算',
       bridgetext:
         '"統計情報を解除するために、レコードを追加してください。" (Tōkei jōhō o kaijo suru tame ni, rekōdo o tsuikashite kudasai.)',
+      calorieTabTitle: 'あなたは消費しました',
+      total: '合計で'
     },
     dashobard: {
       cardCommit: '健康日記',
@@ -1163,6 +1236,12 @@ export const translation = {
       health: '健康',
       profile: 'プロフィール',
     },
+    calDesc: {
+      title: '説明を追加',
+      subTitle: '下に食事を追加してください',
+      submit: '送信',
+      placeholder: '食事を記入してください'
+    }
   },
   ko: {
     boarding: {
@@ -1184,6 +1263,7 @@ export const translation = {
     main: {
       homeTitle: '홈',
       trackerTitle: '추적기',
+      calorieTitle: '칼로리 카운터',
       healthTitle: '건강 정보',
       settingTitle: '설정',
       profile: '프로필',
@@ -1214,6 +1294,8 @@ export const translation = {
       height: '신장',
       calculatebmi: 'BMI 계산',
       bridgetext: '통계 정보를 잠금 해제하려면 기록을 추가하세요',
+      calorieTabTitle: '당신은 섭취했습니다',
+      total: '총'
     },
     dashobard: {
       cardCommit: '건강 일기',
@@ -1289,6 +1371,12 @@ export const translation = {
       health: '건강',
       profile: '프로필',
     },
+    calDesc: {
+      title: '설명 추가',
+      subTitle: '아래에 식사를 추가하세요',
+      submit: '제출',
+      placeholder: '식사를 적어주세요'
+    }
   },
   ind: {
     boarding: {
@@ -1312,6 +1400,7 @@ export const translation = {
       homeTitle: 'Beranda',
       trackerTitle: 'Pelacak',
       healthTitle: 'Info Kesehatan',
+      calorieTitle: 'Penghitung Kalori',
       settingTitle: 'Pengaturan',
       profile: 'Profil',
       more: 'Lainnya',
@@ -1340,8 +1429,9 @@ export const translation = {
       weight: 'Berat Badan',
       height: 'Tinggi Badan',
       calculatebmi: 'Hitung BMI',
-      bridgetext:
-        'Harap tambahkan catatan Anda untuk membuka informasi statistik',
+      bridgetext: 'Harap tambahkan catatan Anda untuk membuka informasi statistik',
+      calorieTabTitle: 'Anda telah mengonsumsi',
+      total: 'secara total'
     },
     dashboard: {
       cardCommit: 'Buku Harian Kesehatan',
@@ -1417,6 +1507,12 @@ export const translation = {
       health: 'Kesehatan',
       profile: 'Profil',
     },
+    calDesc: {
+      title: 'Tambahkan Deskripsi',
+      subTitle: 'Tambahkan makanan Anda di bawah ini',
+      submit: 'Kirim',
+      placeholder: 'Silakan tulis makanan Anda'
+    }
   },
   fl: {
     boarding: {
@@ -1440,6 +1536,7 @@ export const translation = {
       homeTitle: 'Bahay',
       trackerTitle: 'Tagasubaybay',
       healthTitle: 'Impormasyon sa Kalusugan',
+      calorieTitle: 'Tagabilang ng Calorie',
       settingTitle: 'Mga Setting',
       profile: 'Profile',
       more: 'Higit Pa',
@@ -1468,8 +1565,9 @@ export const translation = {
       weight: 'Timbang',
       height: 'Taas',
       calculatebmi: 'Kalkulahin ang BMI',
-      bridgetext:
-        'Mangyaring idagdag ang iyong rekord upang i-unlock ang impormasyon ng istatistika',
+      bridgetext: 'Mangyaring idagdag ang iyong rekord upang i-unlock ang impormasyon ng istatistika',
+      calorieTabTitle: 'Nakakonsumo ka na ng',
+      total: 'sa kabuuan'
     },
     dashobard: {
       cardCommit: 'Talaarawan ng Kalusugan',
@@ -1547,6 +1645,12 @@ export const translation = {
       health: 'Kalusugan',
       profile: 'Profile',
     },
+    calDesc: {
+      title: 'Magdagdag ng Paglalarawan',
+      subTitle: 'Ilagay ang iyong pagkain sa ibaba',
+      submit: 'Ipasa',
+      placeholder: 'Pakisulat ang iyong pagkain'
+    }
   },
   vt: {
     boarding: {
@@ -1570,6 +1674,7 @@ export const translation = {
       homeTitle: 'Trang chủ',
       trackerTitle: 'Trình theo dõi',
       healthTitle: 'Thông tin Sức khỏe',
+      calorieTitle: 'Máy đếm calo',
       settingTitle: 'Cài đặt',
       profile: 'Hồ sơ',
       more: 'Thêm',
@@ -1599,6 +1704,8 @@ export const translation = {
       height: 'Chiều cao',
       calculatebmi: 'Tính BMI',
       bridgetext: 'Vui lòng thêm bản ghi của bạn để mở khóa thông tin thống kê',
+      calorieTabTitle: 'Bạn đã tiêu thụ',
+      total: 'tổng cộng'
     },
     dashobard: {
       cardCommit: 'Nhật ký sức khỏe',
@@ -1674,6 +1781,12 @@ export const translation = {
       health: 'Sức khỏe',
       profile: 'Hồ sơ',
     },
+    calDesc: {
+      title: 'Thêm Mô Tả',
+      subTitle: 'Thêm bữa ăn của bạn bên dưới',
+      submit: 'Gửi',
+      placeholder: 'Vui lòng ghi lại bữa ăn của bạn'
+    }
   },
   port: {
     boarding: {
@@ -1697,6 +1810,7 @@ export const translation = {
       homeTitle: 'Início',
       trackerTitle: 'Rastreador',
       healthTitle: 'Informações de Saúde',
+      calorieTitle: 'Contador de Calorias',
       settingTitle: 'Configurações',
       profile: 'Perfil',
       more: 'Mais',
@@ -1727,6 +1841,8 @@ export const translation = {
       calculatebmi: 'Calcular IMC',
       bridgetext:
         'Por favor, adicione seu registro para desbloquear informações estatísticas',
+      calorieTabTitle: 'Você consumiu',
+      total: 'no total'
     },
     dashboard: {
       cardCommit: 'Diário de Saúde',
@@ -1804,6 +1920,12 @@ export const translation = {
       health: 'Saúde',
       profile: 'Perfil',
     },
+    calDesc: {
+      title: 'Adicionar Descrição',
+      subTitle: 'Adicione sua refeição abaixo',
+      submit: 'Enviar',
+      placeholder: 'Por favor, escreva sua refeição'
+    }
   },
   tml: {
     boarding: {
@@ -1827,6 +1949,7 @@ export const translation = {
       homeTitle: 'முகப்பு',
       trackerTitle: 'பின்தொடருபவர்',
       healthTitle: 'ஆரோக்கிய தகவல்',
+      calorieTitle: 'கலோரி கணிப்பான்',
       settingTitle: 'அமைப்புகள்',
       profile: 'சுயவிவரம்',
       more: 'மேலும்',
@@ -1856,6 +1979,8 @@ export const translation = {
       height: 'உயரம்',
       calculatebmi: 'BMI-ஐ கணக்கிடவும்',
       bridgetext: 'புள்ளிவிவர தகவல்களை திறக்க உங்கள் பதிவைச் சேர்க்கவும்',
+      calorieTabTitle: 'நீங்கள் உட்கொண்டுள்ளீர்கள்',
+      total: 'மொத்தம்'
     },
     dashobard: {
       cardCommit: 'சுகாதார பதிவேடு',
@@ -1932,6 +2057,12 @@ export const translation = {
       health: 'ஆரோக்கியம்',
       profile: 'சுயவிவரம்',
     },
+    calDesc: {
+      title: 'விளக்கத்தைச் சேர்க்கவும்',
+      subTitle: 'உங்கள் உணவை கீழே சேர்க்கவும்',
+      submit: 'சமர்ப்பிக்கவும்',
+      placeholder: 'தயவுசெய்து உங்கள் உணவை எழுதவும்'
+    }
   },
   khmr: {
     boarding: {
@@ -1955,6 +2086,7 @@ export const translation = {
       homeTitle: 'ទំព័រដើម',
       trackerTitle: 'ការតាមដាន',
       healthTitle: 'ព័ត៌មានសុខភាព',
+      calorieTitle: 'ម៉ាស៊ីនរាប់កាឡូរី',
       settingTitle: 'ការកំណត់',
       profile: 'ប្រវត្តិរូប',
       more: 'ច្រើនទៀត',
@@ -1984,6 +2116,8 @@ export const translation = {
       height: 'កម្ពស់',
       calculatebmi: 'គណនាផ្លាស់ប្តូរប្រវត្តិសមភាពនិងមាតិកាចង្វាក់បេះដូង',
       bridgetext: 'សូមបន្ថែមការកត់ត្រារបស់អ្នកដើម្បីបើកការព័ត៌មានស្ថិតិ',
+      calorieTabTitle: 'អ្នកបានบริโภค',
+      total: 'សរុប'
     },
     dashobard: {
       cardCommit: 'កំណត់ហេតុសុខភាព',
@@ -2059,6 +2193,12 @@ export const translation = {
       health: 'សុខភាព',
       profile: 'ប្រវត្តិរូប',
     },
+    calDesc: {
+      title: 'បន្ថែមការពិពណ៌នា',
+      subTitle: 'បន្ថែមអាហាររបស់អ្នកខាងក្រោម',
+      submit: 'ដាក់ស្នើ',
+      placeholder: 'សូមសរសេរអាហាររបស់អ្នក'
+    }
   },
   thi: {
     boarding: {
@@ -2082,6 +2222,7 @@ export const translation = {
       homeTitle: 'หน้าแรก',
       trackerTitle: 'ตัวติดตาม',
       healthTitle: 'ข้อมูลสุขภาพ',
+      calorieTitle: 'เครื่องนับแคลอรี่',
       settingTitle: 'การตั้งค่า',
       profile: 'โปรไฟล์',
       more: 'เพิ่มเติม',
@@ -2111,6 +2252,8 @@ export const translation = {
       height: 'ส่วนสูง',
       calculatebmi: 'คำนวณ BMI',
       bridgetext: 'โปรดเพิ่มบันทึกของคุณเพื่อปลดล็อกข้อมูลสถิติ',
+      calorieTabTitle: 'คุณได้บริโภค',
+      total: 'ทั้งหมด'
     },
     dashobard: {
       cardCommit: 'บันทึกสุขภาพ',
@@ -2186,5 +2329,11 @@ export const translation = {
       health: 'สุขภาพ',
       profile: 'โปรไฟล์',
     },
+    calDesc: {
+      title: 'เพิ่มคำอธิบาย',
+      subTitle: 'เพิ่มมื้ออาหารของคุณด้านล่าง',
+      submit: 'ส่ง',
+      placeholder: 'กรุณาเขียนมื้ออาหารของคุณ'
+    }
   },
 };

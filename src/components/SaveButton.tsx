@@ -31,7 +31,6 @@ export default function SaveButton(props: any) {
   const saveRecord = async () => {
     setloader(true);
     if (props.screenname == 'BloodPressure') {
-      console.log(props.systolicpressure, props.diastolicpressure);
       // if ((props.systolicpressure < props.diastolicpressure) || (props.systolicpressure == props.diastolicpressure)) {
       //   Vibration.vibrate();
       //   // props.setmessage(true);
@@ -74,12 +73,10 @@ export default function SaveButton(props: any) {
     if (props.screenname == 'BloodSugar') {
       props.setmessage(false);
       // props.setloader(true);
-      let userID = await get_async_data('user_id');
       let choosenDate =
         props.selectedDate == '' ? props.today : props.selectedDate;
       let datetime = choosenDate + ' ' + moment(props.time).format('HH:mm:ss');
       let data = {
-        user_id: userID,
         report_type: REPORT_TYPES.sugar,
         sugar_concentration: props.sugarconcentration,
         sugar_check: props.selectedTime ? props.selectedTime : 'After meal',
@@ -102,7 +99,7 @@ export default function SaveButton(props: any) {
         setloader(false);
       } else {
         props.setmessage(false);
-        props.setloader(true);
+        // props.setloader(true);
         if (props.tempunit == '°C') {
           if (props.temperature > 38 || props.temperature < 36) {
             ToastAndroid.showWithGravity(
@@ -113,13 +110,11 @@ export default function SaveButton(props: any) {
             // props.setloader(false);
             setloader(false);
           } else {
-            let userID = await get_async_data('user_id');
             let choosenDate =
               props.selectedDate == '' ? props.today : props.selectedDate;
             let datetime =
               choosenDate + ' ' + moment(props.time).format('HH:mm:ss');
             let data = {
-              user_id: userID,
               report_type: REPORT_TYPES.temperature,
               temperature: props.temperature,
               note: props.tempunit,
@@ -128,6 +123,7 @@ export default function SaveButton(props: any) {
 
             let response = await add_report(data);
             if (response) {
+              // props.setloader(false);
               setloader(false);
               props.setsave(true);
               let e = props.temperature + props.tempunit;
@@ -146,13 +142,11 @@ export default function SaveButton(props: any) {
             // props.setloader(false);
             setloader(false);
           } else {
-            let userID = await get_async_data('user_id');
             let choosenDate =
               props.selectedDate == '' ? props.today : props.selectedDate;
             let datetime =
               choosenDate + ' ' + moment(props.time).format('HH:mm:ss');
             let data = {
-              user_id: userID,
               report_type: REPORT_TYPES.temperature,
               temperature: props.temperature,
               note: props.tempunit,
@@ -161,6 +155,7 @@ export default function SaveButton(props: any) {
             };
             let response = await add_report(data);
             if (response) {
+              // props.setloader(false);
               setloader(false);
               props.setsave(true);
               let e = props.temperature + props.tempunit;
@@ -173,9 +168,7 @@ export default function SaveButton(props: any) {
     }
     if (props.screenname == 'Bmi') {
       // props.setloader(true);
-      let userID = await get_async_data('user_id');
       let data = {
-        user_id: userID,
         report_type: REPORT_TYPES.bmi,
         sugar_concentration: '',
         sugar_check: '',
@@ -211,7 +204,7 @@ export default function SaveButton(props: any) {
             height: 200 * btnratio,
             alignSelf: 'center',
             position: 'absolute',
-            bottom: 2,
+            bottom: '10%',
             backgroundColor: '#009f8b',
             alignItems: 'center',
             justifyContent: 'center',

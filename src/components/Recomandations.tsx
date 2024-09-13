@@ -63,7 +63,7 @@ const Recomandations = (props: any) => {
           style={styles.icon}
           source={require('../assets/icons/recomandations.png')}
         />
-        <Text style={styles.title}>{str.dashobard.recommended}</Text>
+        <Text style={[styles.title, {fontSize: 18, fontWeight: '700'}]}>{str.dashobard.recommended}</Text>
       </View>
 
       <View style={styles.articleContainer}>
@@ -135,21 +135,21 @@ const Recomandations = (props: any) => {
 
 const styles = StyleSheet.create({
   header: {
+    width: width * 0.95,
     flexDirection: 'row',
     paddingHorizontal: 15,
     alignItems: 'center',
-    borderTopLeftRadius: 9,
-    borderTopEndRadius: 9,
+    alignSelf: 'center',
   },
   icon: {
     width: 17,
     height: 22.35,
-    marginLeft: 15,
+    marginLeft: 0,
   },
   title: {
     color: '#2E2E2E',
     fontSize: 16,
-    fontFamily: 'Raleway-ExtraBold',
+    fontFamily: 'Roboto',
     marginLeft: 10,
     marginVertical: 15,
   },

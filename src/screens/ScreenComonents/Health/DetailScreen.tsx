@@ -254,7 +254,7 @@ const DetailScreen = ({navigation}: {navigation: any}) => {
           style={{paddingBottom: 20, maxHeight: '75%'}}
           showsVerticalScrollIndicator={false}>
           <View style={styles.nativeContainer}>
-            {/* <NativeAd150 adId={ARTICLE_AD_ID} /> */}
+            <NativeAd150 adId={ARTICLE_AD_ID} />
           </View>
           <Text style={styles.description}>{subtitle}</Text>
           <View style={styles.subDescriptionContainer}>
@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
   nativeContainer: {
     width: width * 0.895,
     alignSelf: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#e6e6e6',
     borderRadius: 12,
     elevation: 3,
   },

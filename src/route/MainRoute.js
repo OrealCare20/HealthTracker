@@ -23,6 +23,7 @@ import BmiResultScreen from '../screens/bmi/BmiResultScreen';
 import DetailScreen from '../screens/ScreenComonents/Health/DetailScreen';
 import TemperatureScreen from '../screens/temperature/TemperatureScreen';
 import TemperatureResultScreen from '../screens/temperature/TemperatureResultScreen';
+import CalorieDescriptionScreen from '../screens/ScreenComonents/CalorieCounter/CalorieDescriptionScreen';
 import { StatusBar } from 'react-native';
 
 const Stack = createNativeStackNavigator();
@@ -140,6 +141,11 @@ export default function MainRoute(props) {
       <Stack.Screen
         name="TemperatureResultScreen"
         component={TemperatureResultScreen}
+        options={{headerShown: false, animationenabled: false}}
+      />
+      <Stack.Screen
+        name="CalorieDescriptionScreen"
+        component={CalorieDescriptionScreen}
         options={{headerShown: false, animationenabled: false}}
       />
     </Stack.Navigator>

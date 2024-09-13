@@ -7,6 +7,9 @@ export const API_KEY = '98b51cbe28734a39b7e104101241005';
 export const BASE_URL = 'https://mrlapps.care20.com/api/sugar_app/'; // live server
 // export const BASE_URL = 'http://192.168.10.43/MRL-Apps/MRL-Apps/public/api/sugar_app/'; // local server
 
+// NINJA'S API
+const apiKey = 'uc22NmzobKOLStlCCKCyiA==0c21y6wx3jBfgtHd'; // Replace with your API key
+
 export const IMG_BASE_URL = 'https://mrlapps.care20.com/uploads/'; // live server
 export const MEAL_IMG_URL = 'https://mrlapps.care20.com/uploads/'; // local server
 export const ADD_USER = BASE_URL + 'add-user';
@@ -19,6 +22,23 @@ export const GET_MEAL_PLAN = BASE_URL + 'get-meal-plan';
 export const GET_BLOGS = BASE_URL + 'get-blogs';
 export const FILTER_REPORT = BASE_URL + 'get-filter-report';
 
+// AVAILABLE LANGUAGES
+export const languageAssets = [
+  { icon: require('../assets/icons/languages/english.png'), name: 'English', type: 'en' },
+  { icon: require('../assets/icons/languages/germen.png'), name: 'Deutsch', type: 'gr' },
+  { icon: require('../assets/icons/languages/spanish.png'), name: 'Española', type: 'es' },
+  { icon: require('../assets/icons/languages/french.png'), name: 'Français', type: 'fr' },
+  { icon: require('../assets/icons/languages/turkish.png'), name: 'Türkçe', type: 'tr' },
+  { icon: require('../assets/icons/languages/itlay.png'), name: 'Italia', type: 'it' },
+  { icon: require('../assets/icons/languages/russian.png'), name: 'Русский', type: 'ru' },
+  { icon: require('../assets/icons/languages/japnease.png'), name: '日本語', type: 'jp' },
+  { icon: require('../assets/icons/languages/korean.png'), name: '한국인', type: 'ko' },
+  { icon: require('../assets/icons/languages/vietnam.png'), name: 'Tiếng Việt', type: 'vt' },
+  { icon: require('../assets/icons/languages/tamil.png'), name: 'தமிழ்', type: 'tml' },
+  { icon: require('../assets/icons/languages/khmer.png'), name: 'ខ្មែរ', type: 'khmr' },
+  { icon: require('../assets/icons/languages/thailand.png'), name: 'แบบไทย', type: 'thi' }
+];
+
 export const duration = [
   'Before meal',
   'After meal',
@@ -27,16 +47,16 @@ export const duration = [
   'Other',
 ];
 
-// export const REPORT_TYPES = {
-//   temperature: 'temperature',
-//   weight: 'weight',
-//   medicine: 'medicine',
-//   aic: 'aic',
-//   sugar: 'sugar',
-//   bp: 'bp',
-//   bmi: 'bmi',
-//   heartRate: 'heart_rate',
-// };
+export const REPORT_TYPES = {
+  temperature: 'temperature',
+  weight: 'weight',
+  medicine: 'medicine',
+  aic: 'aic',
+  sugar: 'sugar',
+  bp: 'bp',
+  bmi: 'bmi',
+  heartRate: 'heart_rate',
+};
 
 export const set_async_data = async (name: any, value: any) => {
   try {
@@ -247,6 +267,87 @@ const arrange_data_for_graph = (record: any, reportType: any) => {
     data['result'] = result;
     return data;
   }
+}
+
+// ---------------------   CALORIE MODULE FUNCTIONS  -------------------------------------------------------
+
+export const calculate_calories = async (query: any) => {
+  try {
+    const request = await fetch(`https://api.api-ninjas.com/v1/nutrition?query=${encodeURIComponent(query)}`, {
+      method: 'GET',
+      headers: {
+        'X-Api-Key': apiKey,
+        'Content-Type': 'application/json'
+      }
+    });
+    const response = await request.json();
+    return response;
+  } catch (e) {
+    return e;
+  }
+}
+
+// ADD DIET REPORT
+export const sumNutrientValues = (arr: any) => {
+  // Initialize the result object with 0 values
+  let result = {
+    cholesterol_mg: 0,
+    fat_total_g: 0,
+    potassium_mg: 0,
+    carbohydrates_total_g: 0,
+    sodium_mg: 0,
+    sugar_g: 0,
+    fiber_g: 0,
+    calories: 0,
+    protein_g: 0
+  };
+
+  // Iterate over each object in the array and sum the values
+  arr.forEach((item: any) => {
+    result.cholesterol_mg += item.cholesterol_mg;
+    result.fat_total_g += item.fat_total_g;
+    result.potassium_mg += item.potassium_mg;
+    result.carbohydrates_total_g += item.carbohydrates_total_g;
+    result.sodium_mg += item.sodium_mg;
+    result.sugar_g += item.sugar_g;
+    result.fiber_g += item.fiber_g;
+    result.calories += item.calories;
+    result.protein_g += item.protein_g;
+  });
+
+  return result;
+}
+export const add_diet_report_to_local_storage = async (postData: any) => {
+  try {
+    const storedData = await AsyncStorage.getItem('diet_report');
+    let dataArray = [];
+
+    // Check if storedData is not null and is valid JSON
+    if (storedData) {
+      dataArray = JSON.parse(storedData);
+    }
+    dataArray.push(postData);
+    await AsyncStorage.setItem('diet_report', JSON.stringify(dataArray));
+    return true;
+  } catch (error) {
+    console.error('Error saving data:', error);
+  }
+};
+
+export const sumNutrients = async (arr: any) => {
+  // Initialize the result object with 0 values
+  let result = await get_async_data('diet_report');
+
+  // Iterate over each object in the array and sum the values
+  arr.forEach((item: any) => {
+    result.cholesterol += item.cholesterol_mg;
+    result.sodium += item.sodium_mg;
+    result.potassium += item.potassium_mg;
+    result.fiber += item.fiber_g;
+    result.fats += item.fat_total_g;
+  });
+
+  return result;
 }
 
 export const getMonthName = (dateString: any) => {

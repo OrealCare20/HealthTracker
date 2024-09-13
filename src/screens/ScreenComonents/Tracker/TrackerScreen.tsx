@@ -112,7 +112,7 @@ const TrackerScreen = (props: any) => {
           </View>
 
           <View style={styles.nativeContainer}>
-            {/* <NativeAd150 adId={NATIVE_AD_ID_ONE}/> */}
+            <NativeAd150 adId={NATIVE_AD_ID_ONE}/>
           </View>
 
           {/* Blood Sugar */}
@@ -135,7 +135,7 @@ const TrackerScreen = (props: any) => {
           </View>
 
           <View style={styles.nativeContainer}>
-            {/* <NativeAd150 adId={NATIVE_AD_ID_TWO}/> */}
+            <NativeAd150 adId={NATIVE_AD_ID_TWO}/>
           </View>
 
           {/* BMI Chart */}
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   nativeContainer: {
     width: width * 0.91,
     alignSelf: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#e6e6e6',
     elevation: 5,
     borderRadius: 15,
   },

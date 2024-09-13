@@ -143,7 +143,7 @@ const AddNewBloodSugarScreen = ({navigation}: {navigation: any}) => {
           </View>
           <View style={styles.clr}></View>
           <View style={styles.NativeAd}>
-            {/* <NativeAd150 adId={NATIVE_AD_ID_ONE}/> */}
+            <NativeAd150 adId={NATIVE_AD_ID_ONE}/>
           </View>
 
           <PieChartComponent />

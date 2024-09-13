@@ -54,7 +54,7 @@ const QuitAppModal = (props: any) => {
           </TouchableOpacity>
         </View>
         <View style={styles.nativeAd}>
-          {/* <NativeAd150 adId={ARTICLE_AD_ID} /> */}
+          <NativeAd150 adId={ARTICLE_AD_ID} />
         </View>
       </View>
     </View>
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   nativeAd: {
     width: width * 0.80,
     alignSelf: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#e6e6e6',
     elevation: 2,
     borderRadius: 12,
   },
