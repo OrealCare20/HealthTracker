@@ -21,9 +21,12 @@ import {
   NATIVE_AD_ID_ONE,
   REWARED_AD_ID,
   NATIVE_AD_ID_TWO,
+  INTERSITIAL_AD_ID,
+  NATIVE_AD_ID,
 } from '../../Helper/AdManager';
 import DisplayRewardedAd from '../../components/DisplayRewardedAd';
 import RateUs from '../../components/RateUs';
+import DisplayAd from '../../components/DisplayAd';
 
 const {width} = Dimensions.get('window');
 const itemWidth = width - 80;
@@ -230,7 +233,7 @@ const BpResultScreen = ({navigation}: {navigation: any}) => {
             rate={rate}
           />
           <View style={styles.NativeAd}>
-            <NativeAd150 adId={NATIVE_AD_ID_ONE} />
+            <NativeAd150 adId={NATIVE_AD_ID}/>
           </View>
           <PieChartAdComponent
             navigation={navigation}
@@ -240,7 +243,7 @@ const BpResultScreen = ({navigation}: {navigation: any}) => {
             rate={rate}
           />
           <View style={[styles.NativeAd, {marginTop: 20}]}>
-            <NativeAd150 adId={NATIVE_AD_ID_TWO} />
+            <NativeAd150 />
           </View>
           <View style={styles.recomandation}>
             <Recomandations
@@ -251,7 +254,7 @@ const BpResultScreen = ({navigation}: {navigation: any}) => {
         </ScrollView>
       </View>
       {loader && (
-        <DisplayRewardedAd _continue={_continue} adId={REWARED_AD_ID} />
+        <DisplayAd _continue={_continue} adId={INTERSITIAL_AD_ID} />
       )}
       {rate && <RateUs showrate={showrate} />}
     </>
@@ -294,9 +297,9 @@ const styles = StyleSheet.create({
   NativeAd: {
     width: width * 0.87,
     alignSelf: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#e6e6e6',
     borderRadius: 12,
-    elevation: 2,
+    elevation: 3,
     marginBottom: 15
   },
   recomandation: {

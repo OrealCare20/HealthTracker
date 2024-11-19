@@ -6,22 +6,21 @@ import {
   Dimensions,
   BackHandler,
 } from 'react-native';
-import {useState, useEffect} from 'react';
-const {width, height} = Dimensions.get('screen');
-import NativeAdView from 'react-native-admob-native-ads';
-import {ARTICLE_AD_ID, NATIVE_AD_ID} from '../Helper/AdManager';
-import {NativeAd150} from '../Helper/NativeAd150';
-import {lang} from '../../global';
-import {useIsFocused} from '@react-navigation/native';
+import { useState, useEffect } from 'react';
+const { width, height } = Dimensions.get('screen');
+import { NATIVE_AD_ID } from '../Helper/AdManager';
+import { NativeAd150 } from '../Helper/NativeAd150';
+import { lang } from '../../global';
+import { useIsFocused } from '@react-navigation/native';
 
 const QuitAppModal = (props: any) => {
   const [language, setlanguage] = useState({
-    main: {cancel: '', okay: ''},
-    quit: {desc: '', quitBtn: ''},
+    main: { cancel: '', okay: '' },
+    quit: { desc: '', quitBtn: '' },
   });
   const [langstr, setlangstr] = useState({
-    main: {cancel: '', okay: ''},
-    quit: {desc: '', quitBtn: ''},
+    main: { cancel: '', okay: '' },
+    quit: { desc: '', quitBtn: '' },
   });
 
   useEffect(() => {
@@ -39,22 +38,22 @@ const QuitAppModal = (props: any) => {
         <Text style={styles.title}>{langstr.quit.desc}</Text>
         <View style={styles.btnContainer}>
           <TouchableOpacity
-            style={[styles.btnColumn, {backgroundColor: '#04AA6D'}]}
+            style={[styles.btnColumn, { backgroundColor: '#04AA6D' }]}
             onPress={() => props.setquit(false)}>
-            <Text style={[styles.title, {fontSize: 14, color: '#fff'}]}>
+            <Text style={[styles.title, { fontSize: 14, color: '#fff' }]}>
               {langstr.main.cancel}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => BackHandler.exitApp()}
-            style={[styles.btnColumn, {backgroundColor: '#ff3333'}]}>
-            <Text style={[styles.title, {fontSize: 14, color: '#fff'}]}>
+            style={[styles.btnColumn, { backgroundColor: '#ff3333' }]}>
+            <Text style={[styles.title, { fontSize: 14, color: '#fff' }]}>
               {langstr.quit.quitBtn}
             </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.nativeAd}>
-          <NativeAd150 adId={ARTICLE_AD_ID} />
+          <NativeAd150 adId={NATIVE_AD_ID} />
         </View>
       </View>
     </View>

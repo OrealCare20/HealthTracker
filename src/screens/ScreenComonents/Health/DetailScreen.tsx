@@ -16,7 +16,7 @@ import {data} from '../../../../globalData';
 import {NativeAd150} from '../../../Helper/NativeAd150';
 import {lang} from '../../../../global';
 import {useIsFocused} from '@react-navigation/native';
-import {ARTICLE_AD_ID} from '../../../Helper/AdManager';
+import {ARTICLE_AD_ID, NATIVE_AD_ID} from '../../../Helper/AdManager';
 const {width, height} = Dimensions.get('window');
 const ITEM_WIDTH = width;
 const ITEM_RATIO = ITEM_WIDTH / 1440;
@@ -254,7 +254,7 @@ const DetailScreen = ({navigation}: {navigation: any}) => {
           style={{paddingBottom: 20, maxHeight: '75%'}}
           showsVerticalScrollIndicator={false}>
           <View style={styles.nativeContainer}>
-            <NativeAd150 adId={ARTICLE_AD_ID} />
+            <NativeAd150 adId={NATIVE_AD_ID}/>
           </View>
           <Text style={styles.description}>{subtitle}</Text>
           <View style={styles.subDescriptionContainer}>

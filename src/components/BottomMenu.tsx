@@ -7,7 +7,7 @@ import {
   Image,
   Text,
 } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import QuitAppModal from './QuitAppModal';
 import { Banner } from '../Helper/AdManager';
 const { width } = Dimensions.get('window');
@@ -60,15 +60,20 @@ const BottomMenu = (props: any) => {
 
         <TouchableOpacity
           onPress={() => changeTab('calorie')}
+          // onPress={() => changeTab('tracker')}
           style={styles.column}>
+          {/* <Image style={styles.icon} source={tab == 'tracker' ? require('../assets/menu/tracker_selected.png') : require('../assets/menu/tracker_unselected.png')} /> */}
           <Image style={styles.icon} source={tab == 'calorie' ? require('../assets/menu/tracker_selected.png') : require('../assets/menu/tracker_unselected.png')} />
+          {/* <Text style={styles.menuTxt}>Tracker</Text> */}
           <Text style={styles.menuTxt}>Cal Assitant</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => changeTab('insight')}
+          // onPress={() => changeTab('insight')}
+          onPress={() => changeTab('tracker')}
           style={styles.column}>
-          <Image style={styles.icon} source={tab == 'insight' ? require('../assets/menu/insight_selected.png') : require('../assets/menu/insight_unselected.png')} />
+          <Image style={styles.icon} source={tab == 'tracker' ? require('../assets/menu/insight_selected.png') : require('../assets/menu/insight_unselected.png')} />
+          {/* <Image style={styles.icon} source={tab == 'insight' ? require('../assets/menu/insight_selected.png') : require('../assets/menu/insight_unselected.png')} /> */}
           <Text style={styles.menuTxt}>Insights</Text>
         </TouchableOpacity>
 

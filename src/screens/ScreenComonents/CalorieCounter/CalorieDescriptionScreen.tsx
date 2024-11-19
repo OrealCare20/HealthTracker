@@ -39,17 +39,20 @@ const CalorieDescriptionScreen = ({ navigation }: { navigation: any }, { params 
         if (description.length > 3) {
             setclick(true);
             let res = await calculate_calories(description.replace(/(\r\n|\n|\r)/gm, " "));
-            setapires(res);
-            if (res) {
+            if (res && res.length > 0 ) {
+                setapires(res);
                 let obj = sumNutrientValues(res);
                 setdata(obj);
                 let newObj = { ...obj, datetime: moment().format('YYYY-MM-D HH:mm:s'), intake: route.params?.type };
                 await add_diet_report_to_local_storage(newObj);
                 setclick(false);
                 setresultview(true);
+            } else {
+                setclick(false);
+                Alert.alert('Enter correct description');
             }
         } else {
-            Alert.alert('Enter atlest 1 item');
+            Alert.alert('Enter correct description');
         }
     }
 
@@ -62,8 +65,8 @@ const CalorieDescriptionScreen = ({ navigation }: { navigation: any }, { params 
                         <ScrollView showsVerticalScrollIndicator={false}>
                             <View style={styles.mainContainer}>
                                 <Text style={styles.title}>{language.calDesc.title}</Text>
-
-                                <TextInput style={styles.inputContainer} placeholder={language.calDesc.placeholder} placeholderTextColor={'#989898'} textAlignVertical='top' multiline onChangeText={setdescription} />
+                                {/* language.calDesc.placeholder */}
+                                <TextInput style={styles.inputContainer} placeholder={`Enter your ${route.params?.type.toLowerCase()}`} placeholderTextColor={'#989898'} textAlignVertical='top' multiline onChangeText={setdescription} />
                             </View>
                             {
                                 click ? (<ActivityIndicator size={'large'} color={'#C6C6C6'} />) : (<TouchableOpacity

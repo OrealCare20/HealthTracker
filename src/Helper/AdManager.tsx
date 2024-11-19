@@ -11,19 +11,19 @@ import {
 } from 'react-native-google-mobile-ads';
 import analytics from '@react-native-firebase/analytics';
 
-// LIVE APPID: ca-app-pub-3781511156022357~6826036258
+// LIVE APPID: ca-app-pub-3781511156022357~9111215678
 // LIVE AD ID's
-// export const APPOPEN_AD_ID = 'ca-app-pub-3781511156022357/6653773722';
-// export const BANNER_AD_ID = 'ca-app-pub-3781511156022357/6941586328';
-// export const INTERSITIAL_AD_ID = 'ca-app-pub-3781511156022357/9111617346'; // save & graph ad id 
+// export const APPOPEN_AD_ID = 'ca-app-pub-3781511156022357/2597778217';
+// export const BANNER_AD_ID = 'ca-app-pub-3781511156022357/3177469935';
+// export const INTERSITIAL_AD_ID = 'ca-app-pub-3781511156022357/9163186563'; // save & graph ad id 
 // export const INTERSITIAL_AD_ID_OLD = 'ca-app-pub-3781511156022357/6542093089'; // close
 // export const REWARED_AD_ID = 'ca-app-pub-3781511156022357/8209433946';
 // export const REWARED_INTERSTITIAL_AD_ID = 'ca-app-pub-3781511156022357/9359828115';
-// export const NATIVE_AD_ID = 'ca-app-pub-3781511156022357/3002341317';
+// export const NATIVE_AD_ID = 'ca-app-pub-3781511156022357/5171970669';
 
 // export const LANGUAGE_NATIVE_AD_ID = 'ca-app-pub-3781511156022357/7644102324';
 // export const NATIVE_AD_ID_ONE = 'ca-app-pub-3781511156022357/2064742085';
-// export const NATIVE_AD_ID_TWO = 'ca-app-pub-3781511156022357/3245460808';
+// export const NATIVE_AD_ID_TWO = 'ca-app-pub-3781511156022357/4493313818';
 // export const ARTICLE_AD_ID = 'ca-app-pub-3781511156022357/1918322292';
 
 // TEST AD ID's

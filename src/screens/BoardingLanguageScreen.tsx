@@ -15,7 +15,7 @@ import analytics from '@react-native-firebase/analytics';
 const { width } = Dimensions.get('screen');
 import { lang as language } from '../../global';
 import { translation } from '../../locales/translation';
-import { LANGUAGE_NATIVE_AD_ID } from '../Helper/AdManager';
+import { LANGUAGE_NATIVE_AD_ID, NATIVE_AD_ID } from '../Helper/AdManager';
 
 const BoardingLanguageScreen = ({ navigation }: { navigation: any }) => {
   const [selectedLang, setselectedLang] = useState('');
@@ -113,7 +113,7 @@ const BoardingLanguageScreen = ({ navigation }: { navigation: any }) => {
       </View>
 
       <View style={styles.bannerAd}>
-        <NativeAd150 adId={LANGUAGE_NATIVE_AD_ID} />
+        <NativeAd150 adId={NATIVE_AD_ID}/>
       </View>
     </View>
   );

@@ -34,6 +34,7 @@ const CalorieTab = (props: any) => {
     }, [language]);
 
     const navigate = (type: any) => {
+        // console.log('TYPE :', type)
         props.navigation.navigate('CalorieDescriptionScreen', { type: type })
     }
 

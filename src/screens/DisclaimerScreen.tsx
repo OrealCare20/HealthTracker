@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,71 +8,68 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
 import analytics from '@react-native-firebase/analytics';
-import {lang} from '../../global';
+import { lang } from '../../global';
 import { useIsFocused } from '@react-navigation/native';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 const ITEM_WIDTH = width - 80;
 const RATIO = ITEM_WIDTH / 1256;
 
-const DisclaimerScreen = ({navigation}: {navigation: any}) => {
+const DisclaimerScreen = ({ navigation }: { navigation: any }) => {
   const isFocused = useIsFocused();
-  const [language, setlanguage] = useState({
-    setting: {discText: '', disclaimer: ''},
-    main: {okay: ''},
+  const [language, setLanguage] = useState({
+    setting: { discText: '', disclaimer: '' },
+    main: { okay: '' },
   });
-  const [desc, setdesc] = useState('');
-  const [title, settitle] = useState('');
-  const [btntxt, setbtntxt] = useState('');
+
+  // Fetch language data and log analytics when screen is focused
   useEffect(() => {
-    (async () => {
+    const fetchLanguageData = async () => {
       try {
         await analytics().logEvent('disclaimer_screen');
-        let lan = await lang();
-        setlanguage(lan);
+        const lan = await lang();
+        setLanguage(lan);
       } catch (e) {
-        console.log(e);
+        console.error('Error fetching language data:', e);
       }
-    })();
+    };
+
+    if (isFocused) fetchLanguageData();
   }, [isFocused]);
-  useEffect(() => {
-    setdesc(language?.setting.discText);
-    settitle(language?.setting.disclaimer);
-    setbtntxt(language?.main.okay);
-  }, [language]);
 
   return (
     <>
       <View style={styles.header}>
         <View style={styles.col}>
           <TouchableOpacity
-            style={{paddingHorizontal: 10, paddingVertical: 5}}
+            style={{ paddingHorizontal: 10, paddingVertical: 5 }}
             onPress={() => navigation.navigate('HomeScreen')}
-            accessibilityLabel="Back">
+            accessibilityLabel="Back"
+          >
             <Image
-              style={{width: 14, height: 14}}
+              style={{ width: 14, height: 14 }}
               source={require('../assets/images/dashboard_icons/navigate_back_new.png')}
             />
           </TouchableOpacity>
-          <Text style={styles.heading}>{title}</Text>
+          <Text style={styles.heading}>{language.setting.disclaimer}</Text>
         </View>
       </View>
       <View style={styles.contentContainer}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={styles.content}>{desc}</Text>
+          <Text style={styles.content}>{language.setting.discText}</Text>
         </ScrollView>
       </View>
-
       <TouchableOpacity
         style={styles.btn}
-        onPress={() => navigation.navigate('HomeScreen')}>
-          <Text style={styles.btntxt}>{btntxt}</Text>
-        </TouchableOpacity>
+        onPress={() => navigation.navigate('HomeScreen')}
+      >
+        <Text style={styles.btntxt}>{language.main.okay}</Text>
+      </TouchableOpacity>
     </>
   );
 };
+
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
@@ -114,12 +112,13 @@ const styles = StyleSheet.create({
     backgroundColor: `rgba(0, 159,139, 0.7)`,
     borderRadius: 6,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   btntxt: {
     color: '#fff',
     fontSize: 14,
     fontFamily: 'Montserrat-Bold',
-  }
+  },
 });
+
 export default DisclaimerScreen;

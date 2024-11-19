@@ -176,7 +176,7 @@ const AddNewBloodPressureScreen = ({navigation}: {navigation: any}) => {
           <Chart />
           <View style={styles.clr}></View>
           <View style={styles.NativeAd}>
-            <NativeAd150 adId={NATIVE_AD_ID_ONE}/>
+            <NativeAd150 />
           </View>
           <PieChartComponent />
           <View style={[styles.clr, {marginBottom: 40}]}></View>

@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "427919053289",
-    "project_id": "health-tracker-bafa6",
-    "storage_bucket": "health-tracker-bafa6.appspot.com"
+    "project_number": "333834357547",
+    "project_id": "pulse-tracker---blood-pressure",
+    "storage_bucket": "pulse-tracker---blood-pressure.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:427919053289:android:531955f8713609850fbb78",
+        "mobilesdk_app_id": "1:333834357547:android:0355623cab9747827d936e",
         "android_client_info": {
           "package_name": "com.healthtracker.pulsetracker.bptracker.bloodpressure"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC_hsuhCujW9Lq8kZg-ObJmdOVVH_sTGIg"
+          "current_key": "AIzaSyDDzNqIXpLrmO5R2E3Anqw3Lil5CvVawNY"
         }
       ],
       "services": {

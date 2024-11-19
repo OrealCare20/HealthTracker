@@ -18,7 +18,8 @@ import {lang} from '../../../global';
 import PageHeader from './components/PageHeader';
 import {NativeAd150} from '../../Helper/NativeAd150';
 import DisplayRewardedAd from '../../components/DisplayRewardedAd';
-import {NATIVE_AD_ID_ONE, NATIVE_AD_ID_TWO, REWARED_AD_ID} from '../../Helper/AdManager';
+import {INTERSITIAL_AD_ID, NATIVE_AD_ID, NATIVE_AD_ID_ONE, NATIVE_AD_ID_TWO, REWARED_AD_ID} from '../../Helper/AdManager';
+import DisplayAd from '../../components/DisplayAd';
 
 const {width} = Dimensions.get('window');
 const itemWidth = width - 80;
@@ -122,7 +123,7 @@ const TemperatureResultScreen = ({navigation}: {navigation: any}) => {
             loader={loader}
           />
           <View style={styles.NativeAd}>
-            <NativeAd150 adId={NATIVE_AD_ID_ONE} />
+            <NativeAd150 />
           </View>
           <PieChartAdComponent
             navigation={navigation}
@@ -131,7 +132,7 @@ const TemperatureResultScreen = ({navigation}: {navigation: any}) => {
             loader={loader}
           />
           <View style={[styles.NativeAd, {marginTop: 20}]}>
-            <NativeAd150 adId={NATIVE_AD_ID_TWO} />
+            <NativeAd150 adId={NATIVE_AD_ID}/>
           </View>
           <View style={styles.recomandation}>
             <Recomandations
@@ -142,7 +143,7 @@ const TemperatureResultScreen = ({navigation}: {navigation: any}) => {
         </ScrollView>
       </View>
       {loader && (
-        <DisplayRewardedAd _continue={_continue} adId={REWARED_AD_ID} />
+        <DisplayAd _continue={_continue} adId={INTERSITIAL_AD_ID} />
       )}
     </>
   );
@@ -181,11 +182,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   NativeAd: {
-    width: width * 0.87,
+    width: width * 0.85,
     alignSelf: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#e6e6e6',
     borderRadius: 12,
-    elevation: 2,
+    elevation: 3,
   },
   recomandation: {
     width: width,

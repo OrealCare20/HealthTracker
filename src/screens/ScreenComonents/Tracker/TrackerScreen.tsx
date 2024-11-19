@@ -15,9 +15,10 @@ import BMIChart from './components/BMIChart';
 import {NativeAd150} from '../../../Helper/NativeAd150';
 import {lang} from '../../../../global';
 import {set_async_data} from '../../../Helper/AppHelper';
-import { NATIVE_AD_ID_ONE, NATIVE_AD_ID_TWO, REWARED_AD_ID } from '../../../Helper/AdManager';
+import { INTERSITIAL_AD_ID, NATIVE_AD_ID, NATIVE_AD_ID_ONE, NATIVE_AD_ID_TWO, REWARED_AD_ID } from '../../../Helper/AdManager';
 import DisplayRewardedAd from '../../../components/DisplayRewardedAd';
 import RateUs from '../../../components/RateUs';
+import DisplayAd from '../../../components/DisplayAd';
 const {width} = Dimensions.get('window');
 
 const TrackerScreen = (props: any) => {
@@ -112,7 +113,7 @@ const TrackerScreen = (props: any) => {
           </View>
 
           <View style={styles.nativeContainer}>
-            <NativeAd150 adId={NATIVE_AD_ID_ONE}/>
+            <NativeAd150 adId={NATIVE_AD_ID}/>
           </View>
 
           {/* Blood Sugar */}
@@ -159,7 +160,7 @@ const TrackerScreen = (props: any) => {
         </ScrollView>
       </SafeAreaView>
 
-      {props.loader &&  (<DisplayRewardedAd _continue={_continue} adId={REWARED_AD_ID}/>)}
+      {props.loader &&  (<DisplayAd _continue={_continue} adId={INTERSITIAL_AD_ID}/>)}
       {rate && <RateUs showrate={showrate} />}
     </>
   );
@@ -171,11 +172,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4F4FE',
   },
   nativeContainer: {
-    width: width * 0.91,
+    width: width * 0.85,
     alignSelf: 'center',
     backgroundColor: '#e6e6e6',
-    elevation: 5,
-    borderRadius: 15,
+    borderRadius: 12,
+    elevation: 3,
   },
   header: {
     flexDirection: 'row',

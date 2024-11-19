@@ -15,7 +15,7 @@ import BpResultScreen from '../screens/bloodpressure/BpResultScreen';
 import ChangeLanguageScreen from '../screens/ChangeLanguageScreen';
 import DisclaimerScreen from '../screens/DisclaimerScreen';
 import FeedBackScreen from '../screens/FeedBackScreen';
-import AboutUs from '../screens/AboutUs';
+import AboutUsScreen from '../screens/AboutUsScreen';
 import BoardingHeartRate1 from '../screens/HeartRate/BoardingHeartRate1';
 import BoardingHeartRate2 from '../screens/HeartRate/BoardingHeartRate2';
 import BmiRecordScreen from '../screens/bmi/BmiRecordScreen';
@@ -104,8 +104,8 @@ export default function MainRoute(props) {
         options={{headerShown: false, animationenabled: false}}
       />
       <Stack.Screen
-        name="AboutUs"
-        component={AboutUs}
+        name="AboutUsScreen"
+        component={AboutUsScreen}
         options={{headerShown: false, animationenabled: false}}
       />
       <Stack.Screen

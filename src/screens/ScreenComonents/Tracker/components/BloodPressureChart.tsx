@@ -120,7 +120,7 @@ const LineChartAdComponent = (props: any) => {
         console.log('error', e);
       }
     })();
-  }, [isFocused]);
+  }, [isFocused, props.rewardadseen]);
 
   return (
     <>

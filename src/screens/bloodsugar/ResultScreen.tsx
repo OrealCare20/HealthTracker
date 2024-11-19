@@ -17,7 +17,7 @@ import PieChartAdComponent from './components/PieChartAdComponent';
 import {REPORT_TYPES, get_report, set_async_data} from '../../Helper/AppHelper';
 import analytics from '@react-native-firebase/analytics';
 import {lang} from '../../../global';
-import {REWARED_AD_ID, INTERSITIAL_AD_ID, NATIVE_AD_ID_ONE, NATIVE_AD_ID_TWO} from '../../Helper/AdManager';
+import {REWARED_AD_ID, INTERSITIAL_AD_ID, NATIVE_AD_ID_ONE, NATIVE_AD_ID_TWO, NATIVE_AD_ID} from '../../Helper/AdManager';
 import DisplayRewardedAd from '../../components/DisplayRewardedAd';
 import DisplayAd from '../../components/DisplayAd';
 import RateUs from '../../components/RateUs';
@@ -163,8 +163,8 @@ const ResultScreen = ({navigation}: {navigation: any}) => {
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <TouchableOpacity
-            onPress={() => setback(true)}
-            // onPress={() => navigation.navigate('HomeScreen', {tab: 'tracker'})}
+            // onPress={() => setback(true)}
+            onPress={() => navigation.navigate('HomeScreen', {tab: 'tracker'})}
             style={{paddingHorizontal: 5}}
             accessibilityLabel="Back">
             <Image
@@ -233,7 +233,7 @@ const ResultScreen = ({navigation}: {navigation: any}) => {
             rate={rate}
           />
           <View style={styles.NativeAd}>
-            <NativeAd150 adId={NATIVE_AD_ID_ONE}/>
+            <NativeAd150 adId={NATIVE_AD_ID}/>
           </View>
           <PieChartAdComponent
             navigation={navigation}
@@ -243,7 +243,7 @@ const ResultScreen = ({navigation}: {navigation: any}) => {
             rate={rate}
           />
           <View style={styles.NativeAd}>
-            <NativeAd150 adId={NATIVE_AD_ID_TWO}/>
+            <NativeAd150/>
           </View>
           <View style={styles.recomandation}>
             <Recomandations
@@ -253,10 +253,10 @@ const ResultScreen = ({navigation}: {navigation: any}) => {
           </View>
         </ScrollView>
       </View>
-      {loader && (
+      {/* {loader && (
         <DisplayRewardedAd _continue={_continue} adId={REWARED_AD_ID} />
-      )}
-      {back && (<DisplayAd _continue={_continue} adId={INTERSITIAL_AD_ID}/>)}
+      )} */}
+      {back || loader && (<DisplayAd _continue={_continue} adId={INTERSITIAL_AD_ID}/>)}
       {/* Display Rate Model After Rewarded Ad shown */}
       {rate && <RateUs showrate={showrate} />}
     </>
@@ -299,9 +299,9 @@ const styles = StyleSheet.create({
   NativeAd: {
     width: width * 0.87,
     alignSelf: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#e6e6e6',
     borderRadius: 12,
-    elevation: 2,
+    elevation: 3,
   },
   recomandation: {
     width: width,

@@ -20,11 +20,14 @@ import Recomandations from '../../components/Recomandations';
 import {useIsFocused} from '@react-navigation/native';
 import {lang} from '../../../global';
 import {
+  INTERSITIAL_AD_ID,
+  NATIVE_AD_ID,
   NATIVE_AD_ID_ONE,
   NATIVE_AD_ID_TWO,
   REWARED_AD_ID,
 } from '../../Helper/AdManager';
 import DisplayRewardedAd from '../../components/DisplayRewardedAd';
+import DisplayAd from '../../components/DisplayAd';
 
 const {width} = Dimensions.get('window');
 const itemWidth = width - 80;
@@ -191,7 +194,7 @@ const BmiResultScreen = ({navigation}: {navigation: any}) => {
             loader={loader}
           />
           <View style={styles.NativeAd}>
-            <NativeAd150 adId={NATIVE_AD_ID_ONE} />
+            <NativeAd150 />
           </View>
           <PieChartAdComponent
             navigation={navigation}
@@ -201,7 +204,7 @@ const BmiResultScreen = ({navigation}: {navigation: any}) => {
           />
 
           <View style={[styles.NativeAd]}>
-            <NativeAd150 adId={NATIVE_AD_ID_TWO} />
+            <NativeAd150 adId={NATIVE_AD_ID}/>
           </View>
           <View style={styles.recomandation}>
             <Recomandations
@@ -212,7 +215,7 @@ const BmiResultScreen = ({navigation}: {navigation: any}) => {
         </ScrollView>
       </View>
       {loader && (
-        <DisplayRewardedAd _continue={_continue} adId={REWARED_AD_ID} />
+        <DisplayAd _continue={_continue} adId={INTERSITIAL_AD_ID} />
       )}
     </>
   );
@@ -237,11 +240,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Raleway-Medium',
   },
   NativeAd: {
-    width: width * 0.86,
+    width: width * 0.85,
     alignSelf: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#e6e6e6',
     borderRadius: 12,
-    elevation: 2,
+    elevation: 3,
   },
   recomandation: {
     width: width,

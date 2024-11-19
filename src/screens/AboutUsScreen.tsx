@@ -16,7 +16,7 @@ const {width} = Dimensions.get('window');
 const ITEM_WIDTH = width - 150;
 const RATIO = ITEM_WIDTH / 192;
 
-const AboutUs = ({navigation}: {navigation: any}) => {
+const AboutUsScreen = ({navigation}: {navigation: any}) => {
   const isFocused = useIsFocused();
   const [feedback, setfeedback] = useState('');
   const [language, setlanguage] = useState({
@@ -59,7 +59,7 @@ const AboutUs = ({navigation}: {navigation: any}) => {
         <View style={styles.col}>
           <TouchableOpacity
             style={{paddingHorizontal: 8, paddingVertical: 5}}
-            onPress={() => navigation.navigate('HomeScreen', {tab: 'setting'})}
+            onPress={() => navigation.navigate('HomeScreen', {tab: 'profile'})}
             accessibilityLabel="Back">
             <Image
               style={{width: 14, height: 14}}
@@ -146,4 +146,4 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 });
-export default AboutUs;
+export default AboutUsScreen;

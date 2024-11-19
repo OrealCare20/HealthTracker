@@ -156,7 +156,7 @@ const SettingCards = (props: any) => {
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={0.9}
-        onPress={() => navigateScreen('AboutUs')}>
+        onPress={() => navigateScreen('AboutUsScreen')}>
         <ImageBackground
           style={styles.card}
           source={require('../../../../assets/settings/about.png')}>
@@ -181,5 +181,4 @@ const styles = StyleSheet.create({
     marginLeft: '16%',
   },
 });
-
 export default SettingCards;

@@ -17,7 +17,7 @@ import NativeAdView, {
   AdBadge,
 } from 'react-native-admob-native-ads';
 
-export const NativeAd150 = React.memo(props => {
+export const NativeAd150 = React.memo((props) => {
   const nativeAdViewRef = useRef(NativeAdView);
   const [loaded, setLoaded] = useState(false);
 

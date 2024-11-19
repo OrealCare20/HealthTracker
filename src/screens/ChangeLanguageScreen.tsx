@@ -13,7 +13,7 @@ import React, { useState, useEffect } from 'react';
 import { NativeAd150 } from '../Helper/NativeAd150';
 import { languageAssets, set_async_data } from '../Helper/AppHelper';
 import { lang } from '../../global';
-import { LANGUAGE_NATIVE_AD_ID } from '../Helper/AdManager';
+import { LANGUAGE_NATIVE_AD_ID, NATIVE_AD_ID } from '../Helper/AdManager';
 const { width } = Dimensions.get('screen');
 
 const ChangeLanguageScreen = ({ navigation }: { navigation: any }) => {
@@ -70,7 +70,7 @@ const ChangeLanguageScreen = ({ navigation }: { navigation: any }) => {
 
   const navigate = async () => {
     await set_async_data('selected_lang', selectedLang);
-    navigation.navigate('HomeScreen', { tab: 'setting' });
+    navigation.navigate('HomeScreen', { tab: 'profile' });
   };
 
   return (
@@ -79,7 +79,7 @@ const ChangeLanguageScreen = ({ navigation }: { navigation: any }) => {
         <View style={styles.col}>
           <TouchableOpacity
             style={{ paddingHorizontal: 10, paddingVertical: 5 }}
-            onPress={() => navigation.navigate('HomeScreen', { tab: 'setting' })}
+            onPress={() => navigation.navigate('HomeScreen', { tab: 'profile' })}
             accessibilityLabel="Back">
             <Image
               style={{ width: 14, height: 14 }}
@@ -100,7 +100,7 @@ const ChangeLanguageScreen = ({ navigation }: { navigation: any }) => {
         <View style={styles.languageContainer}>{displayLanguages()}</View>
       </ScrollView>
       <View style={styles.nativeAd}>
-        <NativeAd150 adId={LANGUAGE_NATIVE_AD_ID} />
+        <NativeAd150 adId={NATIVE_AD_ID}/>
       </View>
     </SafeAreaView>
   );
