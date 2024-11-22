@@ -242,9 +242,9 @@ const ResultScreen = ({navigation}: {navigation: any}) => {
             loader={loader}
             rate={rate}
           />
-          <View style={styles.NativeAd}>
+          {/* <View style={styles.NativeAd}>
             <NativeAd150/>
-          </View>
+          </View> */}
           <View style={styles.recomandation}>
             <Recomandations
               putScreen={'HomeScreen'}

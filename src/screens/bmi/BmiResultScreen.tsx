@@ -56,7 +56,7 @@ const BmiResultScreen = ({navigation}: {navigation: any}) => {
     },
   });
 
-  const adjustBar = (number: any) => {
+  const adjustBar = (number: any) => { //66.098
     if (number <= 16.4) {
       setchartPercentage(5);
     }
@@ -67,19 +67,21 @@ const BmiResultScreen = ({navigation}: {navigation: any}) => {
       setchartPercentage(35);
     }
     if (number >= 25.0 && number <= 29.9) {
-      console.log('obese level');
       setchartPercentage(48);
     }
     if (number >= 30.0 && number <= 34.9) {
       setchartPercentage(61);
     }
     if (number >= 35.0 && number <= 39.9) {
-      setchartPercentage(75);
+      setchartPercentage(77);
+    } 
+    if(number >= 39) {
+      setchartPercentage(78);
     }
   };
 
   useEffect(() => {
-    adjustBar(data);
+    adjustBar(parseInt(data));
   }, [data]);
 
   useEffect(() => {

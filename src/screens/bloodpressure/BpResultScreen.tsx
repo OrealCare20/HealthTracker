@@ -242,9 +242,9 @@ const BpResultScreen = ({navigation}: {navigation: any}) => {
             loader={loader}
             rate={rate}
           />
-          <View style={[styles.NativeAd, {marginTop: 20}]}>
+          {/* <View style={[styles.NativeAd, {marginTop: 20}]}>
             <NativeAd150 />
-          </View>
+          </View> */}
           <View style={styles.recomandation}>
             <Recomandations
               putScreen={'HomeScreen'}
