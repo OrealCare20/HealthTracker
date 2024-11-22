@@ -149,7 +149,7 @@ export default function BloodPressure({navigation}: {navigation: any}) {
     let dis = parseInt(diastolicpressure);
     // Perfect Matched
     if (sys > 180 || dis > 120) {
-      setpressurelevel('Hypertension');
+      setpressurelevel('Hypertensive');
       setchartPercentage(80);
     } else if ((sys >= 140 && sys <= 180) || (dis >= 90 && dis <= 120)) {
       setpressurelevel('Hypertension-Stage 2');

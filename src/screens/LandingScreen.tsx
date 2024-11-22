@@ -68,7 +68,7 @@ const LandingScreen = ({ navigation }: { navigation: any }) => {
     let adStatus = await get_async_data('hide_ad');
     if (nextAppState === 'active') {
       if (adStatus == 'hide') {
-        console.log('hide tha unhide hogya');
+        // console.log('hide tha unhide hogya');
         await set_async_data('hide_ad', 'unhide');
         settrayad(false);
       }

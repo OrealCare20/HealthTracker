@@ -27,6 +27,7 @@ const PieChartComponent = () => {
   }, []);
 
   const sortData = (arr: any) => {
+    console.log('ARR', arr)
     let finalChartData = [
       {
         color: '#3980FF',

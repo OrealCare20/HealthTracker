@@ -103,10 +103,10 @@ const DashboardContent = (props: any) => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.heartInnerContainer}>
+      {/* <View style={styles.heartInnerContainer}>
         <Text style={styles.badgeFont}>Last Report</Text>
         <Text style={[styles.badgeFont, {fontFamily: 'Montserrat-SemiBold'}]}>History</Text>
-      </View>
+      </View> */}
 
       {/* <View style={styles.header}>
         <Image
