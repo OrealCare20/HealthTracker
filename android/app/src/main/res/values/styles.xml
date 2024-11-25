@@ -24,7 +24,7 @@
   <!-- Configuration for Dialog.theme. -->
 <style name="Dialog.Theme" style="borderTopLeftRadius: 12" parent="Theme.AppCompat.Light.Dialog">
   <!-- BackgroundColor of the date modal -->
-    <item name="colorAccent">#5F45FE</item>
+    <item name="colorAccent">#009F8B</item>
 
     <!-- Change textColor of the date modal -->
     <item name="android:textColorPrimary">#000000</item>

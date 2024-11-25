@@ -3,7 +3,7 @@ const {width, height} = Dimensions.get('window');
 
 export const Style = StyleSheet.create({
   calendarHeader: {
-    backgroundColor: '#5F45FE',
+    backgroundColor: '#009F8B',
     flexDirection: 'column',
     padding: 10,
     borderTopLeftRadius: 24,

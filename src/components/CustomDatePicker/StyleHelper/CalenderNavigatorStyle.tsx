@@ -22,7 +22,7 @@ export const CalenderNavigatorStyle = StyleSheet.create({
     fontWeight: '700',
   },
   weekdayscontainer: {
-    backgroundColor: '#5F45FE',
+    backgroundColor: '#009F8B',
     width: '85%',
     alignSelf: 'center',
     borderRadius: 55,

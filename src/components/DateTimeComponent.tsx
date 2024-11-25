@@ -153,7 +153,7 @@ const DateTimeComponent = (props: any) => {
               value={props.time}
               mode="time"
               display={'default'}
-              headerStyle={{backgroundColor: '#5F45FE'}}
+              headerStyle={{backgroundColor: '#009F8B'}}
               is24Hour={false}
               onChange={props.onChangeTime}
             />
