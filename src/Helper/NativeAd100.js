@@ -17,10 +17,10 @@ import NativeAdView, {
   ImageView,
 } from 'react-native-admob-native-ads';
 import {NATIVE_AD_ID} from './AdManager';
-import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder';
+// import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder';
 import LinearGradient from 'react-native-linear-gradient';
 
-const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient);
+// const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient);
 
 export const NativeAd100 = React.memo(() => {
   const nativeAdViewRef = useRef(NativeAdView);

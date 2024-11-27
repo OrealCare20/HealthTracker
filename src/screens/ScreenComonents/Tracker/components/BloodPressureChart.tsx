@@ -7,16 +7,16 @@ import {
   Image,
   Text,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import {BarChart, yAxisSides} from 'react-native-gifted-charts';
+import { BarChart, yAxisSides } from 'react-native-gifted-charts';
 import {
   get_async_data,
   get_chart_data,
   set_async_data,
 } from '../../../../Helper/AppHelper';
-import {useIsFocused} from '@react-navigation/native';
-const {width} = Dimensions.get('window');
+import { useIsFocused } from '@react-navigation/native';
+const { width } = Dimensions.get('window');
 
 const adImgWidth = width - 50;
 const adImgRatio = adImgWidth / 1260;
@@ -31,8 +31,8 @@ const LineChartAdComponent = (props: any) => {
   const [stackData, setstackData] = useState([
     {
       stacks: [
-        {value: 80, color: 'transparent'},
-        {value: 120, color: '#38D73F', marginBottom: 2},
+        { value: 80, color: 'transparent' },
+        { value: 120, color: '#38D73F', marginBottom: 2 },
       ],
       label: '9am',
     },
@@ -59,38 +59,37 @@ const LineChartAdComponent = (props: any) => {
         for (let index = 0; index < limit; index++) {
           let color = '#F13F07';
           if (
-            (chartData.systolic_pressure[index] >= 140 &&
-              chartData.systolic_pressure[index] <= 180) ||
-            (chartData.diastolic_pressure[index] >= 90 &&
-              chartData.diastolic_pressure[index] <= 120)
+            (parseInt(chartData.systolic_pressure[index]) > 180 || parseInt(chartData.diastolic_pressure[index]) > 120)
+          ) {
+            color = '#F13F07'; // Hypertensive
+          } else if (
+            (parseInt(chartData.systolic_pressure[index]) >= 140 &&
+              parseInt(chartData.systolic_pressure[index]) <= 180) ||
+            (parseInt(chartData.diastolic_pressure[index]) >= 90 &&
+              parseInt(chartData.diastolic_pressure[index]) <= 120)
           ) {
             color = '#EC7F00'; // Hyper. Stage-2
           } else if (
-            (chartData.systolic_pressure[index] >= 130 &&
-              chartData.systolic_pressure[index] <= 139) ||
-            (chartData.diastolic_pressure[index] >= 80 &&
-              chartData.diastolic_pressure[index] <= 89)
+            (parseInt(chartData.systolic_pressure[index]) >= 130 &&
+              parseInt(chartData.systolic_pressure[index]) <= 139) ||
+            (parseInt(chartData.diastolic_pressure[index]) >= 80 &&
+              parseInt(chartData.diastolic_pressure[index]) <= 89)
           ) {
             color = '#FF9A24'; // Hyper. Stage-1
           } else if (
-            chartData.systolic_pressure[index] >= 120 &&
-            chartData.systolic_pressure[index] <= 129 &&
-            chartData.diastolic_pressure[index] >= 60 &&
-            chartData.diastolic_pressure[index] <= 79
+            parseInt(chartData.systolic_pressure[index]) >= 120 &&
+            parseInt(chartData.systolic_pressure[index]) <= 129 &&
+            parseInt(chartData.diastolic_pressure[index]) >= 60 &&
+            parseInt(chartData.diastolic_pressure[index]) <= 79
           ) {
             color = '#FEB056'; // Elevated
           } else if (
-            chartData.systolic_pressure[index] >= 90 &&
-            chartData.systolic_pressure[index] <= 119 &&
-            chartData.diastolic_pressure[index] >= 60 &&
-            chartData.diastolic_pressure[index] <= 79
+            (parseInt(chartData.systolic_pressure[index]) >= 90 &&
+              parseInt(chartData.systolic_pressure[index]) <= 119) &&
+            (parseInt(chartData.diastolic_pressure[index]) >= 60 &&
+              parseInt(chartData.diastolic_pressure[index]) <= 79)
           ) {
             color = '#2EB100'; // Normal
-          } else if (
-            chartData.systolic_pressure[index] > 80 ||
-            chartData.diastolic_pressure[index] > 120
-          ) {
-            color = '#3980FF'; //Hypertension
           } else {
             // color = '#F13F07'
             color = '#3980FF'; //Hypotension
@@ -104,8 +103,8 @@ const LineChartAdComponent = (props: any) => {
               },
               {
                 value:
-                parseInt(chartData.systolic_pressure[index]) -
-                parseInt(chartData.diastolic_pressure[index]),
+                  parseInt(chartData.systolic_pressure[index]) -
+                  parseInt(chartData.diastolic_pressure[index]),
                 color: color,
                 marginBottom: 2,
               },
