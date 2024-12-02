@@ -1,14 +1,14 @@
-import { View, Text, Dimensions } from 'react-native'
+import { View, Text, Dimensions, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useAppOpenAd } from 'react-native-google-mobile-ads';
 import { APPOPEN_AD_ID } from './AdManager';
-import ZoomAnimation from '../components/ZoomAnimation';
+// import ZoomAnimation from '../components/ZoomAnimation';
 
 const { width } = Dimensions.get('window');
 
 export const AppOpenAd = (props: any) => {
     const [loader, setloader] = useState(true);
-    const { isClosed, isClicked, isLoaded, isOpened, error, load, show } = useAppOpenAd(APPOPEN_AD_ID, {
+    const { isClosed, isLoaded, error, load, show } = useAppOpenAd(APPOPEN_AD_ID, {
         requestNonPersonalizedAdsOnly: true,
     });
 
@@ -40,7 +40,10 @@ export const AppOpenAd = (props: any) => {
 
     const display = () => {
         if (loader) {
-            return <ZoomAnimation />
+            return (
+                // <ActivityIndicator size={'large'} color={'#a6a6a6'} />
+                <Text style={{fontWeight: '600', fontSize: 16, fontFamily: 'Montserrat-Bold',fontStyle: 'normal'}}>Loading Ad ...</Text>
+            )
         } else {
             if (isLoaded && !error) {
                 show();
@@ -53,7 +56,7 @@ export const AppOpenAd = (props: any) => {
             style={{
                 width: width,
                 height: '100%',
-                backgroundColor: 'rgba(0,0,0,0.3)',
+                backgroundColor: '#fff',
                 position: 'absolute',
                 justifyContent: 'center',
                 alignItems: 'center',

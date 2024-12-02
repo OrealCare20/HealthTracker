@@ -153,7 +153,7 @@ const LineChartAdComponent = (props: any) => {
             <TouchableOpacity
               style={styles.btn}
               onPress={() => {
-                props.navigation.navigate('AddNewBloodPressureScreen'); //AddBloodPressure
+                props.navigation.navigate('BloodPressure'); //AddNewBloodPressureScreen
               }}>
               <Text style={styles.addbtnText}>{props.langstr.main.add}</Text>
             </TouchableOpacity>

@@ -33,19 +33,6 @@ const LandingScreen = ({ navigation }: { navigation: any }) => {
   };
 
   useEffect(() => {
-    (async () => {
-      // await set_async_data('hide_ad', 'unhide');
-      // await set_async_data('hide_ad', 'hide');
-      // const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      // if (timeZone != null || timeZone != undefined) {
-      //   let area = timeZone.split('/');
-      //   let res = await weather_api_request(area[1]);
-      //   settemperature(res.current.temp_f);
-      // }
-    })();
-  }, []);
-
-  useEffect(() => {
     AppState.addEventListener('change', handleAppStateChange);
     if (route.params != undefined) {
       let selectedTab = route.params?.tab;
@@ -65,7 +52,9 @@ const LandingScreen = ({ navigation }: { navigation: any }) => {
   }, [selectedmenu]);
 
   const handleAppStateChange = async (nextAppState: any) => {
+    console.log('app state changed to', nextAppState)
     let adStatus = await get_async_data('hide_ad');
+    console.log('current adStatus', adStatus);
     if (nextAppState === 'active') {
       if (adStatus == 'hide') {
         // console.log('hide tha unhide hogya');
@@ -73,6 +62,8 @@ const LandingScreen = ({ navigation }: { navigation: any }) => {
         settrayad(false);
       }
       if (adStatus == 'unhide') {
+        console.log('yahan a rha again and again')
+        await set_async_data('hide_ad', 'hide');
         settrayad(true);
       }
     }
@@ -139,8 +130,8 @@ const LandingScreen = ({ navigation }: { navigation: any }) => {
     </View>
     {loader && <DisplayAd setloader={setloader} _continue={_continue} />}
     {trayad && (
-      <DisplayAd _continue={() => settrayad(false)} adId={INTERSITIAL_AD_ID} />
-      // <AppOpenAd settrayad={settrayad} _continue={()=>navigation.navigate('HomeScreen', { tab: 'home' })}/>
+      // <DisplayAd _continue={() => settrayad(false)} adId={INTERSITIAL_AD_ID} />
+      <AppOpenAd settrayad={settrayad} _continue={()=>navigation.navigate('HomeScreen', { tab: 'home' })}/>
     )}
   </>;
 };
