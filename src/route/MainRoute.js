@@ -29,9 +29,9 @@ import { StatusBar } from 'react-native';
 const Stack = createNativeStackNavigator();
 StatusBar.setHidden(true);
 
-export default function MainRoute(props) {
+export default function MainRoute() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="HomeScreen">
       <Stack.Screen
         name="HomeScreen"
         component={LandingScreen}

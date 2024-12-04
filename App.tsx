@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import MainRoute from './src/route/MainRoute';
 import Route from './src/route/Route';
 import { NavigationContainer } from '@react-navigation/native';
 import { get_async_data, set_async_data } from './src/Helper/AppHelper';
-import crashlytics from '@react-native-firebase/crashlytics';
+// import crashlytics from '@react-native-firebase/crashlytics';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 import SplashScreen from 'react-native-splash-screen';
 import { useAppOpenAd } from 'react-native-google-mobile-ads';
 import { APPOPEN_AD_ID } from './src/Helper/AdManager';
 import { View } from 'react-native';
-import { lang } from './global';
+
 
 const App = () => {
   const [firstTime, setfirstTime] = useState(true);
@@ -53,7 +53,7 @@ const App = () => {
       }
     })();
   }, [isLoaded]);
-                                                                
+
   useEffect(() => {
     if (error != undefined && loadAttempts >= 2) {
       console.log('app opn error', error);
@@ -77,12 +77,27 @@ const App = () => {
         setfirstTime(false);
       }
     })();
-
   }, []);
 
   useEffect(() => {
     displayContent();
   }, [splashClosed]);
+
+  // useEffect(() => {
+  //   const unsubscribe = notifee.onForegroundEvent(({ type, detail }) => {
+  //     if (type === EventType.PRESS) {
+  //       const { url } = detail.notification?.data;
+  //       console.log('Notification Clicked in Foreground:', url);
+  //       console.log(url);
+  //       if (url) {
+  //         // Open the deep link
+  //         Linking.openURL(url);
+  //       }
+  //     }
+  //   });
+  
+  //   return () => unsubscribe();
+  // }, []);
 
   const displayContent = () => {
     if (splashClosed == true) {
@@ -98,7 +113,9 @@ const App = () => {
 
   return (
     <>
-      <NavigationContainer>{displayContent()}</NavigationContainer>
+      <NavigationContainer>
+        {displayContent()}
+      </NavigationContainer>
     </>
   );
 };

@@ -81,7 +81,7 @@ const DashboardContent = (props: any) => {
       setcardtitlefive(language?.dashobard.heartRate);
       setstr(language?.dashobard?.cardCommit);
       setadd(language?.dashobard.addNow);
-      setmeasure(language?.dashobard.measure);
+      setmeasure(language?.dashobard.monitor);
     })();
   }, [language]);
 

@@ -57,7 +57,7 @@ export const translation = {
     },
     dashobard: {
       cardCommit: 'Health Diary',
-      measure: 'Measure Now',
+      monitor: 'Monitor Now',
       recommended: 'Recommended Reading',
       bp: 'Blood Pressure',
       bs: 'Blood Sugar',
@@ -193,7 +193,7 @@ export const translation = {
     },
     dashobard: {
       cardCommit: 'Diario de Salud',
-      measure: 'Medir Ahora',
+      monitor: 'Monitorear Ahora',
       recommended: 'Lectura Recomendada',
       bp: 'Presión Arterial',
       bs: 'Azúcar en la Sangre',
@@ -332,7 +332,7 @@ export const translation = {
     },
     dashobard: {
       cardCommit: 'Sağlık Günlüğü',
-      measure: 'Şimdi Ölç',
+      monitor: 'Şimdi izle',
       recommended: 'Sağlık Günlüğü',
       bp: 'Kan Basıncı',
       bs: 'Kan Şekeri',
@@ -470,7 +470,7 @@ export const translation = {
     },
     dashobard: {
       cardCommit: 'مفكرة صحية',
-      measure: 'قِس الآن',
+      monitor: 'راقب الآن',
       recommended: 'القراءة الموصى بها',
       bp: 'ضغط الدم',
       bs: 'مستوى السكر في الدم',
@@ -606,7 +606,7 @@ export const translation = {
     },
     dashobard: {
       cardCommit: 'Gesundheitstagebuch',
-      measure: 'Jetzt Messen',
+      monitor: 'Jetzt überwachen',
       recommended: 'Empfohlene Lektüre',
       bp: 'Blutdruck',
       bs: 'Blutzucker',
@@ -746,7 +746,7 @@ export const translation = {
     },
     dashobard: {
       cardCommit: 'Journal de Santé',
-      measure: 'Mesurer Maintenant',
+      monitor: 'Surveiller Maintenant',
       recommended: 'Lecture recommandée',
       bp: 'Tension artérielle',
       bs: 'Taux de sucre dans le sang',
@@ -886,7 +886,7 @@ export const translation = {
     },
     dashobard: {
       cardCommit: 'Diario della Salute',
-      measure: 'Misura Ora',
+      monitor: 'Monitora Ora',
       recommended: 'Lettura Consigliata',
       bp: 'Pressione Sanguigna',
       bs: 'Glicemia',
@@ -1025,7 +1025,7 @@ export const translation = {
     },
     dashobard: {
       cardCommit: 'Дневник здоровья',
-      measure: 'Измерить сейчас',
+      monitor: 'Мониторить сейчас',
       recommended: 'Рекомендуемые материалы',
       bp: 'Артериальное давление',
       bs: 'Уровень сахара в крови',
@@ -1165,7 +1165,7 @@ export const translation = {
     dashobard: {
       cardCommit: '健康日記',
       recommended: 'おすすめの読み物',
-      measure: '今測定する',
+      monitor: '今すぐ監視する',
       bp: '血圧',
       bs: '血糖値',
       bmi: 'BMI',
@@ -1300,7 +1300,7 @@ export const translation = {
     dashobard: {
       cardCommit: '건강 일기',
       recommended: '추천 읽기',
-      measure: '지금 측정하다',
+      monitor: '지금 모니터하세요',
       bp: '혈압',
       bs: '혈당',
       bmi: 'BMI',
@@ -1436,7 +1436,7 @@ export const translation = {
     dashboard: {
       cardCommit: 'Buku Harian Kesehatan',
       recommended: 'Bacaan yang Direkomendasikan',
-      measure: 'Ukur Sekarang',
+      monitor: 'Pantau sekarang',
       bp: 'Tekanan Darah',
       bs: 'Gula Darah',
       bmi: 'BMI',
@@ -1572,7 +1572,7 @@ export const translation = {
     dashobard: {
       cardCommit: 'Talaarawan ng Kalusugan',
       recommended: 'Inirekomendang Pagbasa',
-      measure: 'Sukatin Ngayon',
+      monitor: 'Subaybayan ngayon',
       bp: 'Presyon ng Dugo',
       bs: 'Asukal sa Dugo',
       bmi: 'BMI',
@@ -1710,7 +1710,7 @@ export const translation = {
     dashobard: {
       cardCommit: 'Nhật ký sức khỏe',
       recommended: 'Đọc Đề Xuất',
-      measure: 'Đo bây giờ',
+      monitor: 'Giám sát ngay bây giờ',
       bp: 'Huyết Áp',
       bs: 'Đường Huyết',
       bmi: 'BMI',
@@ -1847,7 +1847,7 @@ export const translation = {
     dashboard: {
       cardCommit: 'Diário de Saúde',
       recommended: 'Leitura Recomendada',
-      measure: 'Medir Agora',
+      monitor: 'Monitorar Agora',
       bp: 'Pressão Arterial',
       bs: 'Nível de Açúcar no Sangue',
       bmi: 'IMC',
@@ -1985,7 +1985,7 @@ export const translation = {
     dashobard: {
       cardCommit: 'சுகாதார பதிவேடு',
       recommended: 'பரிந்துரைக்கப்பட்ட வாசிப்பு',
-      measure: 'இப்போது அளவிடுங்கள்',
+      monitor: 'இப்போது கண்காணிக்கவும்',
       bp: 'இரத்த அழுத்தம்',
       bs: 'இரத்த சர்க்கரை',
       bmi: 'BMI',
@@ -2122,7 +2122,7 @@ export const translation = {
     dashobard: {
       cardCommit: 'កំណត់ហេតុសុខភាព',
       recommended: 'ការអានដែលបានណែនាំ',
-      measure: 'វាស់ឥឡូវនេះ',
+      monitor: 'ត្រួតពិនិត្យឥឡូវនេះ',
       bp: 'សម្ពាធឈាម',
       bs: 'ស្ករក្នុងឈាម',
       bmi: 'BMI',
@@ -2258,7 +2258,7 @@ export const translation = {
     dashobard: {
       cardCommit: 'บันทึกสุขภาพ',
       recommended: 'การอ่านที่แนะนำ',
-      measure: 'วัดตอนนี้',
+      monitor: 'ตรวจสอบตอนนี้',
       bp: 'ความดันโลหิต',
       bs: 'น้ำตาลในเลือด',
       bmi: 'BMI',

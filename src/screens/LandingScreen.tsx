@@ -11,9 +11,9 @@ import CalorieTab from './ScreenComonents/CalorieCounter/CalorieTab';
 import HealthScreen from './ScreenComonents/Health/HealthScreen';
 import Settings from './ScreenComonents/Settings/Settings';
 import DisplayAd from '../components/DisplayAd';
-import { get_async_data, set_async_data, weather_api_request } from '../Helper/AppHelper';
-import { INTERSITIAL_AD_ID } from '../Helper/AdManager';
+import { get_async_data, set_async_data } from '../Helper/AppHelper';
 import { AppOpenAd } from '../Helper/AppOpenAd';
+import notifee, { EventType } from '@notifee/react-native';
 
 const LandingScreen = ({ navigation }: { navigation: any }) => {
   const isFocused = useIsFocused();
@@ -51,18 +51,16 @@ const LandingScreen = ({ navigation }: { navigation: any }) => {
     component();
   }, [selectedmenu]);
 
+
   const handleAppStateChange = async (nextAppState: any) => {
     console.log('app state changed to', nextAppState)
     let adStatus = await get_async_data('hide_ad');
-    console.log('current adStatus', adStatus);
     if (nextAppState === 'active') {
       if (adStatus == 'hide') {
-        // console.log('hide tha unhide hogya');
         await set_async_data('hide_ad', 'unhide');
         settrayad(false);
       }
       if (adStatus == 'unhide') {
-        console.log('yahan a rha again and again')
         await set_async_data('hide_ad', 'hide');
         settrayad(true);
       }
@@ -122,6 +120,7 @@ const LandingScreen = ({ navigation }: { navigation: any }) => {
 
   return <>
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
+
       {component()}
       <BottomMenu
         setselectedmenu={setselectedmenu}
@@ -131,7 +130,7 @@ const LandingScreen = ({ navigation }: { navigation: any }) => {
     {loader && <DisplayAd setloader={setloader} _continue={_continue} />}
     {trayad && (
       // <DisplayAd _continue={() => settrayad(false)} adId={INTERSITIAL_AD_ID} />
-      <AppOpenAd settrayad={settrayad} _continue={()=>navigation.navigate('HomeScreen', { tab: 'home' })}/>
+      <AppOpenAd settrayad={settrayad} _continue={() => navigation.navigate('HomeScreen', { tab: 'home' })} />
     )}
   </>;
 };

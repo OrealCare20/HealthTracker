@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import DashboardContent from './components/DashboardContent';
@@ -13,6 +14,7 @@ import {useIsFocused} from '@react-navigation/native';
 import analytics from '@react-native-firebase/analytics';
 const {width, height} = Dimensions.get('screen');
 import {lang} from '../../../../global';
+import { onCreateTriggerNotification, onDisplayNotification } from '../../../Helper/Notification';
 // import CalorieButton from '../../../components/CalorieButton';
 // import { calorieButtonArray } from '../../../Helper/AppHelper';
 
@@ -48,7 +50,8 @@ const Dashboard = (props: any) => {
       decelerationRate={'fast'}
       showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
-        <Text style={styles.heading}>{langstr?.main.homeTitle}</Text>
+        <TouchableOpacity onPress={()=>onCreateTriggerNotification()}><Text style={styles.heading}>Display Notification</Text></TouchableOpacity>
+        {/* <Text style={styles.heading}>{langstr?.main.homeTitle}</Text> */}
       </View>
       <DashboardContent navigate={props.navigateScreen} />
       {/* <CalorieButton data={calorieButtonArray} active={()=>{}} /> */}
