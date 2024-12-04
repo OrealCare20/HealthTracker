@@ -32,9 +32,9 @@ notifee.onBackgroundEvent(async ({ type, detail }) => {
 
         if (url) {
             console.log('ACTUAL URL', url);
-            setTimeout(()=>{
-                NavigationService.navigate('BloodPressure');
-            }, 1200)
+            // setTimeout(()=>{
+            //     NavigationService.navigate('BloodPressure');
+            // }, 1200);
             // Navigate using the deep link
             // await notifee.openNotificationSettings(url);
         }
