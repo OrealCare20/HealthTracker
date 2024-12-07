@@ -5,7 +5,7 @@
 import { AppRegistry } from 'react-native';
 import App from './App';
 import { name as appName } from './app.json';
-import notifee, { EventType } from '@notifee/react-native';
+// import notifee, { EventType } from '@notifee/react-native';
 
 // Global variable to store the screen intent
 // global.notificationIntent = null;
@@ -24,13 +24,13 @@ import notifee, { EventType } from '@notifee/react-native';
 //     }
 // });
 
-notifee.onBackgroundEvent(async ({ type, detail }) => {
-    if (type === EventType.PRESS) {
-      if (detail.notification?.data?.screenName) {
-        // global.notificationIntent = detail.notification.data.screenName;
-        console.log('notification clicked');
-      }
-    }
-});
+// notifee.onBackgroundEvent(async ({ type, detail }) => {
+//     if (type === EventType.PRESS) {
+//       if (detail.notification?.data?.screenName) {
+//         // global.notificationIntent = detail.notification.data.screenName;
+//         console.log('notification clicked');
+//       }
+//     }
+// });
 
 AppRegistry.registerComponent(appName, () => App);

@@ -129,7 +129,7 @@ const App = () => {
         if (detail.notification && detail.notification.data?.screenName) {
           setscreen(detail.notification.data?.screenName);
         }
-        
+
         setTimeout(() => {
           navigationRef.current?.navigate(screen);
         }, 1200);
@@ -137,19 +137,33 @@ const App = () => {
     }
   });
 
-  notifee.onBackgroundEvent(({ type, detail }) => {
-    switch (type) {
-      case EventType.DISMISSED:
-        console.log('User dismissed notification', detail.notification.data);
-        break;
-      case EventType.PRESS:
-        console.log('User pressed notification background', detail.notification);
-        setTimeout(() => {
-          if (detail.notification.data && detail.notification.data.screenName) {
-            navigationRef.current?.navigate(data.screenName);
+  notifee.onBackgroundEvent(async ({ type, detail }) => {
+    try {
+      switch (type) {
+        case EventType.DISMISSED:
+          console.log('User dismissed notification', detail.notification);
+          break;
+
+        case EventType.PRESS:
+          console.log('User pressed notification from background', detail.notification);
+
+          if (detail.notification?.data?.screenName) {
+            const screenName = detail.notification.data.screenName;
+
+            // Directly navigate to the screen
+            if (navigationRef?.current) {
+              navigationRef.current.navigate(screenName);
+            } else {
+              console.error('Navigation reference is not available');
+            }
           }
-        }, 1000);
-        break;
+          break;
+
+        default:
+          console.warn('Unhandled notification event type:', type);
+      }
+    } catch (error) {
+      console.error('Error handling background notification:', error);
     }
   });
 
