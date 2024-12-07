@@ -10,6 +10,7 @@ import React, {useState, useEffect} from 'react';
 import LandingScreen from '../../../LandingScreen';
 import { useIsFocused } from '@react-navigation/native';
 import { lang } from '../../../../../global';
+import { set_async_data } from '../../../../Helper/AppHelper';
 const {width} = Dimensions.get('window');
 const ITEM_WIDTH = width - 50;
 const RATIO = ITEM_WIDTH / 1256;
@@ -59,6 +60,7 @@ const SettingCards = (props: any) => {
   };
   const onShare = async () => {
     try {
+      await set_async_data('hide_ad', 'hide');
       const result = await Share.share({
         message:
           'https://play.google.com/store/apps/details?id=com.healthapps.digitalhealthkit',

@@ -1,41 +1,97 @@
 import notifee, { AndroidImportance, AndroidVisibility, RepeatFrequency, TriggerType } from '@notifee/react-native';
 
-export const onDisplayNotification = async () => {
-    // Request permissions (required for iOS)
-    await notifee.requestPermission()
+// export const onDisplayNotification = async () => {
+//     // Request permissions (required for iOS)
+//     await notifee.requestPermission();
 
-    // Create a channel (required for Android)
+//     // Create a channel (required for Android)
+//     const channelId = await notifee.createChannel({
+//         id: 'test',
+//         name: 'Test Channel',
+//         vibration: true,
+//         badge: true,
+//         importance: AndroidImportance.HIGH,
+//         visibility: AndroidVisibility.PUBLIC
+//     });
+
+//     // Display a notification
+//     await notifee.displayNotification({
+//         title: `<p style="color: #f44336;">Pulse Tracker</p>`,
+//         body: `<p style="color: #f44336;">Record your Blood Pressure</p>`,
+//         android: {
+//             channelId,
+//             color: '#4caf50',
+//             largeIcon: require('../assets/images/aboutusimage.png'),
+//             // smallIcon: 'android/app/src/main/res/drawable/ic_notification.png',
+//             timestamp: Date.now(),
+//             showTimestamp: true,
+//             importance: AndroidImportance.HIGH,
+//             visibility: AndroidVisibility.PUBLIC,
+//             // pressAction is needed if you want the notification to open the app when pressed
+//             pressAction: {
+//                 id: 'default',
+//             },
+//             data: {
+//                 screenName: 'BloodPressure'
+//             }
+//         },
+//     });
+
+// }
+
+export const onDisplayNotification = async () => {
     const channelId = await notifee.createChannel({
-        id: 'test',
-        name: 'Test Channel',
+        id: 'default',
+        name: 'Default Channel',
         vibration: true,
         badge: true,
         importance: AndroidImportance.HIGH,
         visibility: AndroidVisibility.PUBLIC
     });
 
-    // Display a notification
+    // Required for iOS
+    // See https://notifee.app/react-native/docs/ios/permissions
+    await notifee.requestPermission();
 
-    setTimeout(async () => {
-        await notifee.displayNotification({
-            title: `<p style="color: #f44336;">Pulse Tracker</p>`,
-            body: `<p style="color: #f44336;">Record your Blood Pressure</p>`,
-            android: {
-                channelId,
-                color: '#4caf50',
-                largeIcon: require('../assets/images/aboutusimage.png'),
-                // smallIcon: 'android/app/src/main/res/drawable/ic_notification.png',
-                timestamp: Date.now(),
-                showTimestamp: true,
-                importance: AndroidImportance.HIGH,
-                visibility: AndroidVisibility.PUBLIC,
-                // pressAction is needed if you want the notification to open the app when pressed
-                pressAction: {
-                    id: 'default',
-                },
-            },
-        });
-    }, 3000);
+    // const notificationId = await notifee.displayNotification({
+    //     id: '123',
+    //     title: `<p style="color: #f44336;">Pulse Tracker</p>`,
+    //     body: `<p style="color: #f44336;">Record your Blood Pressure</p>`,
+    //     android: {
+    //         channelId,
+    //         color: '#4caf50',
+    //         largeIcon: require('../assets/images/aboutusimage.png'),
+    //         // smallIcon: 'android/app/src/main/res/drawable/ic_notification.png',
+    //         timestamp: Date.now(),
+    //         showTimestamp: true,
+    //         importance: AndroidImportance.HIGH,
+    //         visibility: AndroidVisibility.PUBLIC,
+    //     },
+    // });
+
+    // Sometime later...
+    await notifee.displayNotification({
+        id: '123',
+        title: `<p style="color: #f44336;">Pulse Tracker</p>`,
+        body: `<p style="color: #f44336;">Record your Blood Pressure</p>`,
+        android: {
+            channelId,
+            color: '#4caf50',
+            largeIcon: require('../assets/images/aboutusimage.png'),
+            // smallIcon: 'android/app/src/main/res/drawable/ic_notification.png',
+            timestamp: Date.now(),
+            showTimestamp: true,
+            importance: AndroidImportance.HIGH,
+            visibility: AndroidVisibility.PUBLIC,
+            pressAction: {
+                id: '123', // Default action
+                launchActivity: 'default', // Ensure the app launches
+              },
+        },
+        data: {
+            screenName: 'BloodPressure'
+        }
+    });
 }
 
 export const onCreateTriggerNotification = async () => {
@@ -44,8 +100,8 @@ export const onCreateTriggerNotification = async () => {
 
     // Set the time for 1:00 PM
     const date = new Date(now);
-    date.setHours(16); // 1:00 PM in 24-hour format
-    date.setMinutes(2);
+    date.setHours(15); // 1:00 PM in 24-hour format
+    date.setMinutes(7);
     date.setSeconds(0);
     date.setMilliseconds(0);
 
@@ -73,7 +129,7 @@ export const onCreateTriggerNotification = async () => {
         {
             title: 'Blood Pressure',
             body: 'Record your Blood Pressure',
-            android: { 
+            android: {
                 channelId,
                 color: '#4caf50',
                 largeIcon: require('../assets/images/aboutusimage.png'),
@@ -89,8 +145,8 @@ export const onCreateTriggerNotification = async () => {
                 },
             },
             data: {
-                url: 'BloodPressure', // Deep link URL
-            },
+                screenName: 'BloodPressure'
+            }
         },
         trigger,
     );

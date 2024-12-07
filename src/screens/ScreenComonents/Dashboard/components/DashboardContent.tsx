@@ -7,10 +7,11 @@ import {
   StyleSheet,
   Dimensions,
   NativeModules,
+  BackHandler,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
-import { get_async_data } from '../../../../Helper/AppHelper';
+import { get_async_data, set_async_data } from '../../../../Helper/AppHelper';
 import { lang } from '../../../../../global';
 import { NativeAd100 } from '../../../../Helper/NativeAd100';
 import LottieView from 'lottie-react-native';
@@ -85,6 +86,11 @@ const DashboardContent = (props: any) => {
     })();
   }, [language]);
 
+  const monitorHeartRate = async () => {
+    await set_async_data('hide_ad', 'hide');
+    NativeModules.ActivityStarter.startActivity();
+  }
+
   return (
     <View style={styles.dashboardCardContainer}>
       <View
@@ -96,7 +102,7 @@ const DashboardContent = (props: any) => {
 
         <TouchableOpacity
           style={styles.measurebtn}
-          onPress={() => NativeModules.ActivityStarter.startActivity()}>
+          onPress={monitorHeartRate}>
           <Text style={{ fontSize: 16, color: '#2E2E2E', fontFamily: 'Montserrat-Bold' }}>
             {measure}
           </Text>

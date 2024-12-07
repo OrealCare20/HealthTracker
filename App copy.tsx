@@ -11,26 +11,6 @@ import { APPOPEN_AD_ID } from './src/Helper/AdManager';
 import { View } from 'react-native';
 import notifee, { EventType } from '@notifee/react-native';
 
-// Deep links
-const deepLinksConf = {
-  screens: {
-    HomeScreen: '', // LandingScreen as the initial screen
-    BloodSugar: 'BloodSugar',
-    BloodPressure: 'BloodPressure',
-    SugarBridgeScreen: 'SugarBridgeScreen',
-    ResultScreen: 'ResultScreen',
-    AddNewBloodPressureScreen: 'AddNewBloodPressure',
-    AddNewBloodSugarScreen: 'AddNewBloodSugar',
-    DisclaimerScreen: 'Disclaimer',
-    // Add other routes here
-  },
-};
-
-const linking = {
-  prefixes: ['myapp://', 'https://app.myapp.com'],
-  config: deepLinksConf,
-}
-
 const App = () => {
   const navigationRef = useRef();
   const [firstTime, setfirstTime] = useState(true);
@@ -39,7 +19,6 @@ const App = () => {
     requestNonPersonalizedAdsOnly: true,
   });
   const [loadAttempts, setLoadAttempts] = useState(0);
-  const [screen, setscreen] = useState('BloodSugar');
 
   useEffect(() => {
     if (!isLoaded && loadAttempts < 2) {
@@ -119,20 +98,17 @@ const App = () => {
 
 
   notifee.onForegroundEvent(({ type, detail }) => {
-    set_async_data('hide_ad', 'hide');
     switch (type) {
       case EventType.DISMISSED:
         console.log('User dismissed notification', detail.notification);
         break;
       case EventType.PRESS:
         console.log('User pressed notification', detail.notification);
-        if (detail.notification && detail.notification.data?.screenName) {
-          setscreen(detail.notification.data?.screenName);
-        }
-        
         setTimeout(() => {
-          navigationRef.current?.navigate(screen);
-        }, 1200);
+          if (detail.notification.data && detail.notification.data.screenName) {
+            navigationRef.current?.navigate(data.screenName);
+          }
+        }, 1000);
         break;
     }
   });
@@ -155,7 +131,7 @@ const App = () => {
 
   return (
     <>
-      <NavigationContainer ref={navigationRef} linking={linking}>
+      <NavigationContainer ref={navigationRef}>
         {displayContent()}
       </NavigationContainer>
     </>

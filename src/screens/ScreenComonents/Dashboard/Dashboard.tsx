@@ -50,8 +50,8 @@ const Dashboard = (props: any) => {
       decelerationRate={'fast'}
       showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
-        {/* <TouchableOpacity onPress={()=>onCreateTriggerNotification()}><Text style={styles.heading}>Display Notification</Text></TouchableOpacity> */}
-        <Text style={styles.heading}>{langstr?.main.homeTitle}</Text>
+        <TouchableOpacity onPress={()=>onCreateTriggerNotification()}><Text style={styles.heading}>Display Notification</Text></TouchableOpacity>
+        {/* <Text style={styles.heading}>{langstr?.main.homeTitle}</Text> */}
       </View>
       <DashboardContent navigate={props.navigateScreen} />
       {/* <CalorieButton data={calorieButtonArray} active={()=>{}} /> */}

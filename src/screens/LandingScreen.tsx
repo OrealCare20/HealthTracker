@@ -53,7 +53,6 @@ const LandingScreen = ({ navigation }: { navigation: any }) => {
 
 
   const handleAppStateChange = async (nextAppState: any) => {
-    console.log('app state changed to', nextAppState)
     let adStatus = await get_async_data('hide_ad');
     if (nextAppState === 'active') {
       if (adStatus == 'hide') {

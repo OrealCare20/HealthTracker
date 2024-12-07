@@ -9,6 +9,7 @@ import org.devio.rn.splashscreen.SplashScreen // import this
 import com.google.android.gms.ads.MobileAds // Import this for Native Ad
 
 
+
 class MainActivity : ReactActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         SplashScreen.show(this)  // Show the splash screen

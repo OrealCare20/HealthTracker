@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Pulse Tracker:Blood Pressure</string>
-    <string name="temp_string">25 C</string>
+    <string name="temp_string">18 C</string>
     <string name="partly_cloud">Partly Cloud</string>
     <string name="appKaName"> Pulse Tracker \n Blood Pressure</string>
     <string name="splash_description">Data Tracking and Analysis</string>
