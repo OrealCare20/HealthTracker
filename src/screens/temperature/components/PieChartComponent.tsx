@@ -14,6 +14,7 @@ const PieChartComponent = () => {
     (async () => {
       try {
         let response = await get_report(REPORT_TYPES.temperature);
+        // console.log(response)
         if (response) {
           if (response.length > 0) {
             sortData(response);

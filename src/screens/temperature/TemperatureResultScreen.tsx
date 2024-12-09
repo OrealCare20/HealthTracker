@@ -123,7 +123,7 @@ const TemperatureResultScreen = ({navigation}: {navigation: any}) => {
             loader={loader}
           />
           <View style={styles.NativeAd}>
-            <NativeAd150 />
+            <NativeAd150 adId={NATIVE_AD_ID}/>
           </View>
           <PieChartAdComponent
             navigation={navigation}

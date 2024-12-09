@@ -7,7 +7,7 @@ import {
   Text,
   Image,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import analytics from '@react-native-firebase/analytics';
 import {
   REPORT_TYPES,
@@ -15,17 +15,17 @@ import {
   get_report,
   set_async_data,
 } from '../../../../Helper/AppHelper';
-import {useIsFocused} from '@react-navigation/native';
-import {get_chart_data} from '../../../../Helper/AppHelper';
+import { useIsFocused } from '@react-navigation/native';
+import { get_chart_data } from '../../../../Helper/AppHelper';
 // import {
 //   VictoryChart,
 //   VictoryLine,
 //   VictoryScatter,
 //   VictoryAxis,
 // } from 'victory-native';
-import {LineChart} from 'react-native-gifted-charts';
+import { LineChart } from 'react-native-gifted-charts';
 import moment from 'moment';
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const adImgWidth = width - 50;
 const adImgRatio = adImgWidth / 1260;
@@ -38,7 +38,7 @@ const BloodSugarChart = (props: any) => {
   const [adSeen, setadSeen] = useState('');
   const [btnType, setbtnType] = useState('Add');
 
-  const [dataArray, setdataArray] = useState([{value: 0, label: '0'}]);
+  const [dataArray, setdataArray] = useState([{ value: 0, label: '0' }]);
 
   useEffect(() => {
     (async () => {
@@ -163,10 +163,12 @@ const BloodSugarChart = (props: any) => {
               initialSpacing={20}
               dashGap={2}
               focusEnabled
-              thickness={2}
-              dataPointsColor={'#00b8e6'}
-              backgroundColor={'#F4F5F6'}
-              xAxisLabelTextStyle={{fontSize: 10}}
+              thickness={3}
+              yAxisTextStyle={{ fontSize: 10, color: '#2A5B1B' }}
+              dataPointsColor={'#2A5B1B'}
+              backgroundColor={'#f4f5f6'}
+              xAxisLabelTextStyle={{ fontSize: 9, color: '#2A5B1B' }}
+              yAxisLabelContainerStyle={{ paddingHorizontial: 7, backgroundColor: '#f4f5f6' }}
             />
           </View>
           <TouchableOpacity

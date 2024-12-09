@@ -1,21 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import {Dimensions} from 'react-native';
-import {useIsFocused} from '@react-navigation/native';
-import {get_chart_data} from '../../../Helper/AppHelper';
+import React, { useEffect, useState } from 'react';
+import { Dimensions } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
+import { get_chart_data } from '../../../Helper/AppHelper';
 // import {
 //   VictoryChart,
 //   VictoryLine,
 //   VictoryScatter,
 //   VictoryAxis,
 // } from 'victory-native';
-import {LineChart} from 'react-native-gifted-charts';
+import { LineChart } from 'react-native-gifted-charts';
 import moment from 'moment';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 function Chart(props: any) {
   const isFocused = useIsFocused();
-  const [dataArray, setdataArray] = useState([{value: 0, label: '0'}]);
+  const [dataArray, setdataArray] = useState([{ value: 0, label: '0' }]);
   useEffect(() => {
     (async () => {
       let sugarChart = await get_chart_data('sugar');
@@ -106,10 +106,12 @@ function Chart(props: any) {
       initialSpacing={20}
       dashGap={2}
       focusEnabled
-      thickness={2}
-      dataPointsColor={'#00b8e6'}
-      backgroundColor={'#F4F5F6'}
-      xAxisLabelTextStyle={{fontSize: 10}}
+      thickness={3}
+      yAxisTextStyle={{ fontSize: 10, color: '#2A5B1B' }}
+      dataPointsColor={'#2A5B1B'}
+      backgroundColor={'#f4f5f6'}
+      xAxisLabelTextStyle={{ fontSize: 9, color: '#2A5B1B' }}
+      yAxisLabelContainerStyle={{ paddingHorizontial: 7, backgroundColor: '#f4f5f6' }}
     />
   );
 }

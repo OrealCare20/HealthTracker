@@ -128,6 +128,24 @@ export const get_report = async (reportType: string) => {
       });
       return reportData;
     }
+
+    if (reportType == 'temperature') {
+      storedData.map((data: any, index: any) => {
+        if (data.report_type == 'temperature') {
+          reportData.push(data);
+        }
+      });
+      return reportData;
+    }
+
+    if (reportType == 'heart_rate') {
+      storedData.map((data: any, index: any) => {
+        if (data.report_type == 'heart_rate') {
+          reportData.push(data);
+        }
+      });
+      return reportData;
+    }
   }
   return reportData;
 };
@@ -229,6 +247,8 @@ const arrange_data_for_graph = (record: any, reportType: any) => {
   let label: any = [];
   let result: any = [];
   let bmi: any = [];
+  let temperature: any = [];
+  let heart_rate: any = [];
 
   if (reportType == 'bp') {
     record.forEach((entry: any) => {
@@ -265,6 +285,30 @@ const arrange_data_for_graph = (record: any, reportType: any) => {
     data['data'] = bmi;
     data['label'] = label;
     data['result'] = result;
+    return data;
+  }
+  if (reportType == 'temperature') {
+    record.forEach((entry: any) => {
+      if (entry.report_type == 'temperature') {
+        temperature.push(entry.temperature);
+        label.push(entry.datetime);
+        result.push(entry.status);
+      }
+    });
+    data['data'] = temperature;
+    data['label'] = label;
+    data['result'] = result;
+    return data;
+  }
+  if (reportType == 'heartRate') {
+    record.forEach((entry: any) => {
+      if (entry.report_type == 'heart_rate') {
+        heart_rate.push(entry.heartRate);
+        label.push(entry.datetime);
+      }
+    });
+    data['data'] = heart_rate;
+    data['label'] = label;
     return data;
   }
 }
