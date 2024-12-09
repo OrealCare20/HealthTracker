@@ -11,14 +11,13 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  AppState,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
-// import analytics from '@react-native-firebase/analytics';
+import analytics from '@react-native-firebase/analytics';
 import { lang } from '../../global';
 import { useIsFocused } from '@react-navigation/native';
-import { Banner } from '../Helper/AdManager';
-import LinearGradient from 'react-native-linear-gradient';
-import { disableAds } from '../Helper/AppHelper';
+import { get_async_data } from '../Helper/AppHelper';
 
 const { width } = Dimensions.get('window');
 const ITEM_WIDTH = width - 60;
@@ -28,16 +27,32 @@ const FeedBackScreen = ({ navigation }: { navigation: any }) => {
   const isFocused = useIsFocused();
   // const [hidead, sethidead] = useState(true);
   const [feedback, setfeedback] = useState('');
+  const [appopenloader, setappopenloader] = useState(false);
   const [language, setlanguage] = useState({
     setting: { feedback: '', suggestion: '' },
   });
   const [title, settitle] = useState('');
   const [placeholder, setplaceholder] = useState('');
 
+  const handleAppStateChange = async (nextAppState: any) => {
+    let adStatus = await get_async_data('hide_ad');
+    if (nextAppState === 'active') {
+      if (adStatus == 'hide') {
+        // await set_async_data('hide_ad', 'unhide');
+        // settrayad(false);
+        console.log('not show app open at this time');
+      }
+      if (adStatus == 'unhide') {
+        setappopenloader(true);
+      }
+    }
+  };
+
   useEffect(() => {
     (async () => {
       try {
-        // await analytics().logEvent('feedback_screen');
+        AppState.addEventListener('change', handleAppStateChange);
+        await analytics().logEvent('feedback_screen');
         let lan = await lang();
         // let res = await disableAds();
         // sethidead(res);
@@ -100,6 +115,17 @@ const FeedBackScreen = ({ navigation }: { navigation: any }) => {
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
+      {appopenloader && (<View
+        style={{
+          width: width,
+          height: '100%',
+          backgroundColor: '#fff',
+          position: 'absolute',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text style={{ fontWeight: '600', fontSize: 16, fontFamily: 'Montserrat-Bold', fontStyle: 'normal' }}>Loading Ad ...</Text>
+      </View>)}
     </>
   );
 };

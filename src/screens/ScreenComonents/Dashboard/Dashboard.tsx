@@ -20,11 +20,10 @@ import { onCreateTriggerNotification, onDisplayNotification } from '../../../Hel
 
 const Dashboard = (props: any) => {
   const isFocused = useIsFocused();
-
   const [selectedmenu, setselectedmenu] = useState('home');
   const [language, setlanguage] = useState({main: {homeTitle: ''}});
   const [langstr, setlangstr] = useState({main: {homeTitle: ''}});
-
+  
   useEffect(() => {
     (async () => {
       try {
@@ -50,8 +49,8 @@ const Dashboard = (props: any) => {
       decelerationRate={'fast'}
       showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={()=>onDisplayNotification()}><Text style={styles.heading}>Display Notification</Text></TouchableOpacity>
-        {/* <Text style={styles.heading}>{langstr?.main.homeTitle}</Text> */}
+        {/* <TouchableOpacity onPress={()=>onDisplayNotification()}><Text style={styles.heading}>Display Notification</Text></TouchableOpacity> */}
+        <Text style={styles.heading}>{langstr?.main.homeTitle}</Text>
       </View>
       <DashboardContent navigate={props.navigateScreen} />
       {/* <CalorieButton data={calorieButtonArray} active={()=>{}} /> */}

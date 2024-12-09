@@ -8,15 +8,16 @@ import {
   BackHandler,
   TouchableOpacity,
   Linking,
+  AppState,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import LineChartAdComponent from './components/LineChartAdComponent';
 import PieChartAdComponent from './components/PieChartAdComponent';
 import Recomandations from '../../components/Recomandations';
-import {NativeAd150} from '../../Helper/NativeAd150';
-import {REPORT_TYPES, get_report, set_async_data} from '../../Helper/AppHelper';
+import { NativeAd150 } from '../../Helper/NativeAd150';
+import { REPORT_TYPES, get_async_data, get_report, set_async_data } from '../../Helper/AppHelper';
 import analytics from '@react-native-firebase/analytics';
-import {lang} from '../../../global';
+import { lang } from '../../../global';
 import {
   NATIVE_AD_ID_ONE,
   REWARED_AD_ID,
@@ -28,21 +29,22 @@ import DisplayRewardedAd from '../../components/DisplayRewardedAd';
 import RateUs from '../../components/RateUs';
 import DisplayAd from '../../components/DisplayAd';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 const itemWidth = width - 80;
 const ratio = itemWidth / 1140;
 
-const BpResultScreen = ({navigation}: {navigation: any}) => {
+const BpResultScreen = ({ navigation }: { navigation: any }) => {
   const [chartPercentage, setchartPercentage] = useState(8);
   const [pressurelevel, setpressurelevel] = useState('Normal');
   const [data, setdata] = useState(['', '']);
   const [loader, setloader] = useState(false);
   const [unlockadtype, setunlockadtype] = useState('');
+  const [appopenloader, setappopenloader] = useState(false);
   const [back, setback] = useState(false);
   const [rate, showrate] = useState(false);
   const [language, setlanguage] = useState({
-    dashobard: {bp: '', bprestitle: '', recommended: ''},
-    main: {add: '', unlock: ''},
+    dashobard: { bp: '', bprestitle: '', recommended: '' },
+    main: { add: '', unlock: '' },
     tracker: {
       bpChartText: '',
       bpCharAddtText: '',
@@ -51,11 +53,11 @@ const BpResultScreen = ({navigation}: {navigation: any}) => {
       bmiChartText: '',
       bmiChartAddText: '',
     },
-    article: {articledata: {}},
+    article: { articledata: {} },
   });
   const [langstr, setlangstr] = useState({
-    dashobard: {bp: '', bprestitle: '', recommended: ''},
-    main: {add: '', unlock: ''},
+    dashobard: { bp: '', bprestitle: '', recommended: '' },
+    main: { add: '', unlock: '' },
     tracker: {
       bpChartText: '',
       bpCharAddtText: '',
@@ -64,8 +66,22 @@ const BpResultScreen = ({navigation}: {navigation: any}) => {
       bmiChartText: '',
       bmiChartAddText: '',
     },
-    article: {articledata: {}},
+    article: { articledata: {} },
   });
+
+  const handleAppStateChange = async (nextAppState: any) => {
+    let adStatus = await get_async_data('hide_ad');
+    if (nextAppState === 'active') {
+      if (adStatus == 'hide') {
+        // await set_async_data('hide_ad', 'unhide');
+        // settrayad(false);
+        console.log('not show app open at this time');
+      }
+      if (adStatus == 'unhide') {
+        setappopenloader(true);
+      }
+    }
+  };
 
   const backAction = () => {
     setback(true);
@@ -85,7 +101,7 @@ const BpResultScreen = ({navigation}: {navigation: any}) => {
       setpressurelevel('Hypertensive');
       setchartPercentage(78);
       return;
-    }else if ((sys >= 140 && sys <= 180) || (dis >= 90 && dis <= 120)) {
+    } else if ((sys >= 140 && sys <= 180) || (dis >= 90 && dis <= 120)) {
       setpressurelevel('Hypertension-Stage 2');
       setchartPercentage(63);
       return;
@@ -115,6 +131,7 @@ const BpResultScreen = ({navigation}: {navigation: any}) => {
   useEffect(() => {
     (async () => {
       try {
+        AppState.addEventListener('change', handleAppStateChange);
         await analytics().logEvent('bp_result_screen');
         let lan = await lang();
         setlanguage(lan);
@@ -147,7 +164,7 @@ const BpResultScreen = ({navigation}: {navigation: any}) => {
     setloader(false);
     if (back == true) {
       setback(false);
-      navigation.navigate('HomeScreen', {tab: 'home'});
+      navigation.navigate('HomeScreen', { tab: 'home' });
     } else {
       navigation.navigate('BpResultScreen');
       showrate(true);
@@ -169,17 +186,17 @@ const BpResultScreen = ({navigation}: {navigation: any}) => {
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <TouchableOpacity
-            style={{paddingHorizontal: 5}}
+            style={{ paddingHorizontal: 5 }}
             accessibilityLabel="Back"
-            onPress={() => navigation.navigate('HomeScreen', {tab: 'tracker'})}>
+            onPress={() => navigation.navigate('HomeScreen', { tab: 'tracker' })}>
             <Image
-              style={{width: 14, height: 14}}
+              style={{ width: 14, height: 14 }}
               source={require('../../assets/images/dashboard_icons/navigate_back_new.png')}
             />
           </TouchableOpacity>
           <Text style={styles.heading}>{langstr.dashobard.bp}</Text>
         </View>
-        <ScrollView style={{flex: 1}}>
+        <ScrollView style={{ flex: 1 }}>
           <View style={styles.colouredBg}>
             <TouchableOpacity
               style={styles.ibutton}
@@ -187,12 +204,12 @@ const BpResultScreen = ({navigation}: {navigation: any}) => {
                 Linking.openURL('https://medlineplus.gov/vitalsigns.html')
               }>
               <Image
-                style={{width: 25, height: 20}}
+                style={{ width: 25, height: 20 }}
                 source={require('../../assets/images/ibutton.png')}
               />
             </TouchableOpacity>
             <Text style={styles.title}>{langstr.dashobard.bprestitle}</Text>
-            <View style={{marginVertical: 25}}>
+            <View style={{ marginVertical: 25 }}>
               <Text
                 style={{
                   textAlign: 'center',
@@ -233,7 +250,7 @@ const BpResultScreen = ({navigation}: {navigation: any}) => {
             rate={rate}
           />
           <View style={styles.NativeAd}>
-            <NativeAd150 adId={NATIVE_AD_ID}/>
+            <NativeAd150 adId={NATIVE_AD_ID} />
           </View>
           <PieChartAdComponent
             navigation={navigation}
@@ -257,6 +274,17 @@ const BpResultScreen = ({navigation}: {navigation: any}) => {
         <DisplayAd _continue={_continue} adId={INTERSITIAL_AD_ID} />
       )}
       {rate && <RateUs showrate={showrate} />}
+      {appopenloader && (<View
+        style={{
+          width: width,
+          height: '100%',
+          backgroundColor: '#fff',
+          position: 'absolute',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text style={{ fontWeight: '600', fontSize: 16, fontFamily: 'Montserrat-Bold', fontStyle: 'normal' }}>Loading Ad ...</Text>
+      </View>)}
     </>
   );
 };

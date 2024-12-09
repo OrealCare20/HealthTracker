@@ -7,10 +7,12 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  AppState
 } from 'react-native';
 import analytics from '@react-native-firebase/analytics';
 import { lang } from '../../global';
 import { useIsFocused } from '@react-navigation/native';
+import { get_async_data } from '../Helper/AppHelper';
 
 const { width } = Dimensions.get('window');
 const ITEM_WIDTH = width - 80;
@@ -18,15 +20,31 @@ const RATIO = ITEM_WIDTH / 1256;
 
 const DisclaimerScreen = ({ navigation }: { navigation: any }) => {
   const isFocused = useIsFocused();
+  const [appopenloader, setappopenloader] = useState(false);
   const [language, setLanguage] = useState({
     setting: { discText: '', disclaimer: '' },
     main: { okay: '' },
   });
 
+  const handleAppStateChange = async (nextAppState: any) => {
+    let adStatus = await get_async_data('hide_ad');
+    if (nextAppState === 'active') {
+      if (adStatus == 'hide') {
+        // await set_async_data('hide_ad', 'unhide');
+        // settrayad(false);
+        console.log('not show app open at this time');
+      }
+      if (adStatus == 'unhide') {
+        setappopenloader(true);
+      }
+    }
+  };
+
   // Fetch language data and log analytics when screen is focused
   useEffect(() => {
     const fetchLanguageData = async () => {
       try {
+        AppState.addEventListener('change', handleAppStateChange);
         await analytics().logEvent('disclaimer_screen');
         const lan = await lang();
         setLanguage(lan);
@@ -66,6 +84,18 @@ const DisclaimerScreen = ({ navigation }: { navigation: any }) => {
       >
         <Text style={styles.btntxt}>{language.main.okay}</Text>
       </TouchableOpacity>
+
+      {appopenloader && (<View
+        style={{
+          width: width,
+          height: '100%',
+          backgroundColor: '#fff',
+          position: 'absolute',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text style={{ fontWeight: '600', fontSize: 16, fontFamily: 'Montserrat-Bold', fontStyle: 'normal' }}>Loading Ad ...</Text>
+      </View>)}
     </>
   );
 };

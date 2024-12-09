@@ -6,29 +6,31 @@ import {
   StyleSheet,
   TextInput,
   Image,
+  AppState
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import SelectDropdown from 'react-native-select-dropdown';
-import {DateTimePickerEvent} from '@react-native-community/datetimepicker';
+import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import PageHeader from './components/PageHeader';
 import DateTimeComponent from '../../components/DateTimeComponent';
-import {lang} from '../../../global';
+import { lang } from '../../../global';
 import analytics from '@react-native-firebase/analytics';
 import moment from 'moment';
-import {addFormStyle} from '../../Helper/StyleHelper';
-import {Banner, INTERSITIAL_AD_ID} from '../../Helper/AdManager';
+import { addFormStyle } from '../../Helper/StyleHelper';
+import { Banner, INTERSITIAL_AD_ID } from '../../Helper/AdManager';
 import LoadingAnimation from '../../components/LoadingAnimation';
 import SaveButton from '../../components/SaveButton';
 import DisplayAd from '../../components/DisplayAd';
+import { get_async_data } from '../../Helper/AppHelper';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 const itemWidth = width - 60;
 const ratio = itemWidth / 1100;
 
-const TemperatureScreen = ({navigation}: {navigation: any}) => {
-  const {container, form, label, input} = addFormStyle;
+const TemperatureScreen = ({ navigation }: { navigation: any }) => {
+  const { container, form, label, input } = addFormStyle;
   const [language, setlanguage] = useState({
-    dashobard: {temperature: ''},
+    dashobard: { temperature: '' },
     main: {
       date: '',
       time: '',
@@ -37,7 +39,7 @@ const TemperatureScreen = ({navigation}: {navigation: any}) => {
     },
   });
   const [langstr, setlangstr] = useState({
-    dashobard: {temperature: ''},
+    dashobard: { temperature: '' },
     main: {
       date: '',
       time: '',
@@ -45,6 +47,7 @@ const TemperatureScreen = ({navigation}: {navigation: any}) => {
       Normal: 'Normal',
     },
   });
+  const [appopenloader, setappopenloader] = useState(false);
   const [closeloader, setcloseloader] = useState(false);
   const [temperature, settemperature] = useState('97');
   const [time, setTime] = useState(new Date());
@@ -58,9 +61,25 @@ const TemperatureScreen = ({navigation}: {navigation: any}) => {
   const [chartPercentage, setchartPercentage] = useState(26);
   const [save, setsave] = useState(false);
   const today = moment(new Date()).format('YYYY-MM-DD');
+
+  const handleAppStateChange = async (nextAppState: any) => {
+    let adStatus = await get_async_data('hide_ad');
+    if (nextAppState === 'active') {
+      if (adStatus == 'hide') {
+        // await set_async_data('hide_ad', 'unhide');
+        // settrayad(false);
+        console.log('not show app open at this time');
+      }
+      if (adStatus == 'unhide') {
+        setappopenloader(true);
+      }
+    }
+  };
+
   useEffect(() => {
     (async () => {
       try {
+        AppState.addEventListener('change', handleAppStateChange);
         await analytics().logEvent('add_blood_sugar');
         let lan = await lang();
         setlanguage(lan);
@@ -74,24 +93,24 @@ const TemperatureScreen = ({navigation}: {navigation: any}) => {
     setlangstr(language);
   }, [language]);
 
-  useEffect(()=> {
+  useEffect(() => {
     let temp = parseInt(temperature);
     if (unit == '°F') {
-      if(temp > 100) {
+      if (temp > 100) {
         setmessage('Potential Illness');
         setchartPercentage(75);
-      } else {setmessage('Normal'); setchartPercentage(26);}
+      } else { setmessage('Normal'); setchartPercentage(26); }
     }
     else {
-      if(temp > 38) {
+      if (temp > 38) {
         setmessage('Potential Illness');
         setchartPercentage(75);
-      } else {setmessage('Normal'); setchartPercentage(26);}
+      } else { setmessage('Normal'); setchartPercentage(26); }
     }
   }, [temperature]);
 
   const onChangeTime = (event: DateTimePickerEvent, value: any) => {
-    const {type} = event;
+    const { type } = event;
     setTimePicker(false);
     if (type === 'set') {
       setTime(value);
@@ -132,7 +151,7 @@ const TemperatureScreen = ({navigation}: {navigation: any}) => {
       } else {
         console.log('convert this into Fernhiet', temperature);
         let temp = parseInt(temperature);
-        temp = (9/5 * temp) + 32;
+        temp = (9 / 5 * temp) + 32;
         temp = temp.toFixed(1);
         temp > 100 ? setmessage('Potential Illness') : setmessage('Normal');
         settemperature(temp.toString());
@@ -143,7 +162,7 @@ const TemperatureScreen = ({navigation}: {navigation: any}) => {
         settemperature('37');
       } else {
         let temp = parseInt(temperature);
-        temp = (temp - 32) * 5/9;
+        temp = (temp - 32) * 5 / 9;
         temp = temp.toFixed(1);
         temp >= 38 ? setmessage('Potential Illness') : setmessage('Normal');
         settemperature(temp.toString());
@@ -154,20 +173,20 @@ const TemperatureScreen = ({navigation}: {navigation: any}) => {
   const _continue = async () => {
     try {
       setcloseloader(false);
-      if(save == true) {
+      if (save == true) {
         setsave(false);
         navigation.navigate('TemperatureResultScreen');
-      } else{
-        navigation.navigate('HomeScreen', {tab: 'home'});
+      } else {
+        navigation.navigate('HomeScreen', { tab: 'home' });
       }
-    } catch(e) {
+    } catch (e) {
       console.log('catch error', e);
-      return ;
+      return;
     }
   };
   return (
     <>
-      <View style={[container, {backgroundColor: '#f4f4f4'}]}>
+      <View style={[container, { backgroundColor: '#f4f4f4' }]}>
         <PageHeader
           setcloseloader={setcloseloader}
           screenTitle={langstr.dashobard.temperature}
@@ -189,13 +208,13 @@ const TemperatureScreen = ({navigation}: {navigation: any}) => {
         />
 
         <View style={form}>
-          <View style={{marginBottom: 0}}>
+          <View style={{ marginBottom: 0 }}>
             <Text style={label}>{langstr.dashobard.temperature}</Text>
           </View>
         </View>
 
         <View style={styles.inputContainar}>
-          <View style={{width: '60%'}}>
+          <View style={{ width: '60%' }}>
             <TextInput
               onChangeText={text => setTemperature(text)}
               style={styles.input}
@@ -205,7 +224,7 @@ const TemperatureScreen = ({navigation}: {navigation: any}) => {
             />
           </View>
 
-          <View style={{width: '40%'}}>
+          <View style={{ width: '40%' }}>
             <SelectDropdown
               data={['°C', '°F']}
               onSelect={(selectedItem: any, index: any) => {
@@ -252,7 +271,7 @@ const TemperatureScreen = ({navigation}: {navigation: any}) => {
                 textAlign: 'left',
                 fontSize: 28,
                 fontWeight: '600',
-                
+
               }}
             />
           </View>
@@ -312,7 +331,18 @@ const TemperatureScreen = ({navigation}: {navigation: any}) => {
         />
       </View>
       <Banner />
-      {closeloader == true|| save == true ? (<DisplayAd _continue={_continue} adId={INTERSITIAL_AD_ID}/>) : (<></>)}
+      {closeloader == true || save == true ? (<DisplayAd _continue={_continue} adId={INTERSITIAL_AD_ID} />) : (<></>)}
+      {appopenloader && (<View
+        style={{
+          width: width,
+          height: '100%',
+          backgroundColor: '#fff',
+          position: 'absolute',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text style={{ fontWeight: '600', fontSize: 16, fontFamily: 'Montserrat-Bold', fontStyle: 'normal' }}>Loading Ad ...</Text>
+      </View>)}
     </>
   );
 };

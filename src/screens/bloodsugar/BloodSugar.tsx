@@ -11,10 +11,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   BackHandler,
+  AppState,
 } from 'react-native';
 import {
   duration,
   errorMessage,
+  get_async_data,
   roundNearestAfterDecimal,
   set_async_data,
 } from '../../Helper/AppHelper';
@@ -59,6 +61,7 @@ export default function BloodSugar({navigation}: {navigation: any}) {
   const [disablesavebtn, setdisablesavebtn] = useState(false);
   const [show, setshow] = useState(false);
   const [save, setsave] = useState(false);
+  const [appopenloader, setappopenloader] = useState(false);
   const [language, setlanguage] = useState({
     dashobard: {bs: '', SugarConcentration: ''},
     main: {
@@ -132,10 +135,24 @@ export default function BloodSugar({navigation}: {navigation: any}) {
       setTime(value);
     }
   };
+  const handleAppStateChange = async (nextAppState: any) => {
+    let adStatus = await get_async_data('hide_ad');
+    if (nextAppState === 'active') {
+      if (adStatus == 'hide') {
+        // await set_async_data('hide_ad', 'unhide');
+        // settrayad(false);
+        console.log('not show app open at this time');
+      }
+      if (adStatus == 'unhide') {
+        setappopenloader(true);
+      }
+    }
+  };
 
   useEffect(() => {
     (async () => {
       try {
+        AppState.addEventListener('change', handleAppStateChange);
         await analytics().logEvent('add_blood_sugar_screen');
         let lan = await lang();
         setlanguage(lan);
@@ -382,6 +399,18 @@ export default function BloodSugar({navigation}: {navigation: any}) {
       )}
 
       {closeloader == true|| save == true ? (<DisplayAd _continue={_continue} adId={INTERSITIAL_AD_ID}/>) : (<></>)}
+
+      {appopenloader && (<View
+        style={{
+          width: width,
+          height: '100%',
+          backgroundColor: '#fff',
+          position: 'absolute',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text style={{ fontWeight: '600', fontSize: 16, fontFamily: 'Montserrat-Bold', fontStyle: 'normal' }}>Loading Ad ...</Text>
+      </View>)}
     </>
   );
 }

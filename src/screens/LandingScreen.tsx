@@ -1,5 +1,5 @@
 import { View, AppState } from 'react-native';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, createContext } from 'react';
 import BottomMenu from '../components/BottomMenu';
 import { useIsFocused } from '@react-navigation/native';
 // import TimeZone from 'react-native-timezone';
@@ -13,16 +13,17 @@ import Settings from './ScreenComonents/Settings/Settings';
 import DisplayAd from '../components/DisplayAd';
 import { get_async_data, set_async_data } from '../Helper/AppHelper';
 import { AppOpenAd } from '../Helper/AppOpenAd';
-import notifee, { EventType } from '@notifee/react-native';
+
+export const TrayContext = createContext(null);
 
 const LandingScreen = ({ navigation }: { navigation: any }) => {
   const isFocused = useIsFocused();
-  const appState = useRef(AppState.currentState);
   const route = useRoute();
+  const appState = useRef(AppState.currentState);
   const [selectedmenu, setselectedmenu] = useState('home');
   const [loader, setloader] = useState(false);
-  const [temperature, settemperature] = useState('');
   const [trayad, settrayad] = useState(false);
+  const [temperature, settemperature] = useState('');
   const navigateScreen = (screenName: any, menu: any) => {
     try {
       navigation.navigate(screenName);
@@ -118,14 +119,15 @@ const LandingScreen = ({ navigation }: { navigation: any }) => {
   };
 
   return <>
+  <TrayContext.Provider value={{trayad, settrayad}}>
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
-
       {component()}
       <BottomMenu
         setselectedmenu={setselectedmenu}
         selectedmenu={selectedmenu}
       />
     </View>
+  </TrayContext.Provider>
     {loader && <DisplayAd setloader={setloader} _continue={_continue} />}
     {trayad && (
       // <DisplayAd _continue={() => settrayad(false)} adId={INTERSITIAL_AD_ID} />

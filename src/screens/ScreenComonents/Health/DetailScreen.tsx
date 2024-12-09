@@ -9,26 +9,29 @@ import {
   Text,
   ScrollView,
   Linking,
+  AppState
 } from 'react-native';
-import React, {useEffect, useState, useRef} from 'react';
-import {useRoute} from '@react-navigation/native';
-import {data} from '../../../../globalData';
-import {NativeAd150} from '../../../Helper/NativeAd150';
-import {lang} from '../../../../global';
-import {useIsFocused} from '@react-navigation/native';
-import {ARTICLE_AD_ID, NATIVE_AD_ID} from '../../../Helper/AdManager';
-const {width, height} = Dimensions.get('window');
+import React, { useEffect, useState, useRef } from 'react';
+import { useRoute } from '@react-navigation/native';
+import { data } from '../../../../globalData';
+import { NativeAd150 } from '../../../Helper/NativeAd150';
+import { lang } from '../../../../global';
+import { useIsFocused } from '@react-navigation/native';
+import { ARTICLE_AD_ID, NATIVE_AD_ID } from '../../../Helper/AdManager';
+import { get_async_data } from '../../../Helper/AppHelper';
+const { width, height } = Dimensions.get('window');
 const ITEM_WIDTH = width;
 const ITEM_RATIO = ITEM_WIDTH / 1440;
 
 const btnWidth = width - 50;
 const btnRatio = btnWidth / 1256;
 
-const DetailScreen = ({navigation}: {navigation: any}) => {
+const DetailScreen = ({ navigation }: { navigation: any }) => {
   const route = useRoute();
   const isFocused = useIsFocused();
   const scrollRef = useRef(null);
   const [quesid, setquesid] = useState(null);
+  const [appopenloader, setappopenloader] = useState(false);
   const [category, setcategory] = useState('');
   const [background, setbackground] = useState(
     require('../../../assets/blogImages/backgroundImages/bp1.png'),
@@ -40,7 +43,7 @@ const DetailScreen = ({navigation}: {navigation: any}) => {
   const [subdescription, setsubdescription] = useState([]);
   const [btntxt, setbtntxt] = useState('More');
   const [language, setlanguage] = useState({
-    main: {more: ''},
+    main: { more: '' },
     article: {
       articledata: {
         bp: {
@@ -76,6 +79,19 @@ const DetailScreen = ({navigation}: {navigation: any}) => {
       },
     },
   });
+  const handleAppStateChange = async (nextAppState: any) => {
+    let adStatus = await get_async_data('hide_ad');
+    if (nextAppState === 'active') {
+      if (adStatus == 'hide') {
+        // await set_async_data('hide_ad', 'unhide');
+        // settrayad(false);
+        console.log('not show app open at this time');
+      }
+      if (adStatus == 'unhide') {
+        setappopenloader(true);
+      }
+    }
+  };
 
   useEffect(() => {
     let key = route.params?.category;
@@ -163,6 +179,7 @@ const DetailScreen = ({navigation}: {navigation: any}) => {
   useEffect(() => {
     (async () => {
       try {
+        AppState.addEventListener('change', handleAppStateChange);
         let lan = await lang();
         setlanguage(lan);
       } catch (e) {
@@ -172,7 +189,7 @@ const DetailScreen = ({navigation}: {navigation: any}) => {
   }, [isFocused]);
 
   const backAction = () => {
-    navigation.navigate('HomeScreen', {tab: 'health'});
+    navigation.navigate('HomeScreen', { tab: 'health' });
     return true;
   };
 
@@ -185,7 +202,7 @@ const DetailScreen = ({navigation}: {navigation: any}) => {
     if (subdescription != null) {
       let jsx = subdescription.map((item: any, index: any) => {
         return (
-          <View style={{marginBottom: 10}} key={index}>
+          <View style={{ marginBottom: 10 }} key={index}>
             <Text style={styles.subHeading}>{item.heading}</Text>
             <Text style={styles.subdescription}>{item.description}</Text>
           </View>
@@ -200,7 +217,7 @@ const DetailScreen = ({navigation}: {navigation: any}) => {
       quesNo: id,
       category: category,
     });
-    scrollRef.current?.scrollTo({x: 0, y: 0, animated: true});
+    scrollRef.current?.scrollTo({ x: 0, y: 0, animated: true });
   };
 
   const customLoop = () => {
@@ -215,7 +232,7 @@ const DetailScreen = ({navigation}: {navigation: any}) => {
             <View style={styles.col1}>
               {item?.icon && (
                 <Image
-                  style={[item.styles, {alignSelf: 'center'}]}
+                  style={[item.styles, { alignSelf: 'center' }]}
                   source={item?.icon}
                 />
               )}
@@ -232,59 +249,72 @@ const DetailScreen = ({navigation}: {navigation: any}) => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: '#fff', padding: 0}}>
-      <ImageBackground style={styles.background} source={background}>
-        <View style={styles.headerContainer}>
-          <TouchableOpacity
-            style={styles.back}
-            onPress={() => {
-              navigation.navigate('HomeScreen', {tab: 'insight'});
-            }}>
-            <Image
-              style={styles.icon}
-              source={require('../../../assets/icons/whiteicon.png')}
-            />
-          </TouchableOpacity>
-          <Text style={styles.title}>{title}</Text>
-        </View>
-      </ImageBackground>
-      <View style={styles.mainContainer}>
-        <ScrollView
-          ref={scrollRef}
-          style={{paddingBottom: 20, maxHeight: '75%'}}
-          showsVerticalScrollIndicator={false}>
-          <View style={styles.nativeContainer}>
-            <NativeAd150 adId={NATIVE_AD_ID}/>
+    <>
+      <View style={{ flex: 1, backgroundColor: '#fff', padding: 0 }}>
+        <ImageBackground style={styles.background} source={background}>
+          <View style={styles.headerContainer}>
+            <TouchableOpacity
+              style={styles.back}
+              onPress={() => {
+                navigation.navigate('HomeScreen', { tab: 'insight' });
+              }}>
+              <Image
+                style={styles.icon}
+                source={require('../../../assets/icons/whiteicon.png')}
+              />
+            </TouchableOpacity>
+            <Text style={styles.title}>{title}</Text>
           </View>
-          <Text style={styles.description}>{subtitle}</Text>
-          <View style={styles.subDescriptionContainer}>
-            {showSubDescription()}
-
-            <View style={styles.reference}>
-              <Text style={styles.refTitle}>{referenceTitle}</Text>
-              <TouchableOpacity onPress={() => Linking.openURL(referenceLink)}>
-                <Text style={styles.url}>{referenceLink}</Text>
-              </TouchableOpacity>
+        </ImageBackground>
+        <View style={styles.mainContainer}>
+          <ScrollView
+            ref={scrollRef}
+            style={{ paddingBottom: 20, maxHeight: '75%' }}
+            showsVerticalScrollIndicator={false}>
+            <View style={styles.nativeContainer}>
+              <NativeAd150 adId={NATIVE_AD_ID} />
             </View>
-          </View>
-          {customLoop()}
-          <TouchableOpacity
-            onPress={() => navigation.navigate('HomeScreen', {tab: 'insight'})}
-            style={{
-              alignSelf: 'center',
-              marginVertical: 20,
-              width: btnWidth,
-              height: 176 * btnRatio,
-              backgroundColor: `rgba(0, 159,139, 0.7)`,
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 10,
-            }}>
-            <Text style={styles.btntxt}>{btntxt}</Text>
-          </TouchableOpacity>
-        </ScrollView>
+            <Text style={styles.description}>{subtitle}</Text>
+            <View style={styles.subDescriptionContainer}>
+              {showSubDescription()}
+
+              <View style={styles.reference}>
+                <Text style={styles.refTitle}>{referenceTitle}</Text>
+                <TouchableOpacity onPress={() => Linking.openURL(referenceLink)}>
+                  <Text style={styles.url}>{referenceLink}</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            {customLoop()}
+            <TouchableOpacity
+              onPress={() => navigation.navigate('HomeScreen', { tab: 'insight' })}
+              style={{
+                alignSelf: 'center',
+                marginVertical: 20,
+                width: btnWidth,
+                height: 176 * btnRatio,
+                backgroundColor: `rgba(0, 159,139, 0.7)`,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 10,
+              }}>
+              <Text style={styles.btntxt}>{btntxt}</Text>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
       </View>
-    </View>
+      {appopenloader && (<View
+        style={{
+          width: width,
+          height: '100%',
+          backgroundColor: '#fff',
+          position: 'absolute',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text style={{ fontWeight: '600', fontSize: 16, fontFamily: 'Montserrat-Bold', fontStyle: 'normal' }}>Loading Ad ...</Text>
+      </View>)}
+    </>
   );
 };
 const styles = StyleSheet.create({
@@ -320,9 +350,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  col1: {width: '22%', justifyContent: 'center'},
-  col2: {width: '70%'},
-  col3: {width: '8%', justifyContent: 'flex-end', alignItems: 'center'},
+  col1: { width: '22%', justifyContent: 'center' },
+  col2: { width: '70%' },
+  col3: { width: '8%', justifyContent: 'flex-end', alignItems: 'center' },
   cardImg: {
     width: 46,
     height: 45.56,

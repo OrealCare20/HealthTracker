@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
-import {DateTimePickerEvent} from '@react-native-community/datetimepicker';
+import React, { useState, useEffect, useContext } from 'react';
+import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import moment from 'moment';
-import {errorMessage, get_async_data} from '../../Helper/AppHelper';
+import { errorMessage, get_async_data } from '../../Helper/AppHelper';
 import {
   View,
   Text,
@@ -10,29 +10,31 @@ import {
   StyleSheet,
   BackHandler,
   TouchableOpacity,
+  AppState,
 } from 'react-native';
 import analytics from '@react-native-firebase/analytics';
-import {addFormStyle} from '../../Helper/StyleHelper';
-import {Banner, INTERSITIAL_AD_ID} from '../../Helper/AdManager';
+import { addFormStyle } from '../../Helper/StyleHelper';
+import { Banner, INTERSITIAL_AD_ID } from '../../Helper/AdManager';
 import DateTimeComponent from '../../components/DateTimeComponent';
 import SaveButton from '../../components/SaveButton';
 import SystolicComponent from './components/SystolicComponent';
 import PageHeader from './components/PageHeader';
 // import LoadingAnimation from '../../components/LoadingAnimation';
 import NotesPopup from './components/NotesPopup';
-import {useIsFocused} from '@react-navigation/native';
-import {lang} from '../../../global';
+import { useIsFocused } from '@react-navigation/native';
+import { lang } from '../../../global';
 import DisplayAd from '../../components/DisplayAd';
 import ExitModel from './components/ExitModel';
+import { TrayContext } from '../LandingScreen';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 const today = moment(new Date()).format('YYYY-MM-DD');
 const itemWidth = width - 80;
 const ratio = itemWidth / 1140;
 
-export default function BloodPressure({navigation}: {navigation: any}) {
+export default function BloodPressure({ navigation }: { navigation: any }) {
   const isFocused = useIsFocused();
-  const {container, form} = addFormStyle;
+  const { container, form } = addFormStyle;
   const [selectedDate, setSelectedDate] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [systolicpressure, setSystolicPressure] = useState('99');
@@ -45,11 +47,12 @@ export default function BloodPressure({navigation}: {navigation: any}) {
   const [pressurelevel, setpressurelevel] = useState('Normal');
   const [note, setnote] = useState('');
   const [showremarksmodal, setshowremarksmodal] = useState(false);
+  const [appopenloader, setappopenloader] = useState(false);
   // const [loader, setloader] = useState(false);
   const [closeloader, setcloseloader] = useState(false);
   const [save, setsave] = useState(false);
   const [language, setlanguage] = useState({
-    dashobard: {bp: ''},
+    dashobard: { bp: '' },
     main: {
       date: '',
       time: '',
@@ -79,7 +82,7 @@ export default function BloodPressure({navigation}: {navigation: any}) {
     },
   });
   const [langstr, setlangstr] = useState({
-    dashobard: {bp: ''},
+    dashobard: { bp: '' },
     main: {
       date: '',
       time: '',
@@ -109,9 +112,24 @@ export default function BloodPressure({navigation}: {navigation: any}) {
     },
   });
 
+  const handleAppStateChange = async (nextAppState: any) => {
+    let adStatus = await get_async_data('hide_ad');
+    if (nextAppState === 'active') {
+      if (adStatus == 'hide') {
+        // await set_async_data('hide_ad', 'unhide');
+        // settrayad(false);
+        console.log('not show app open at this time');
+      }
+      if (adStatus == 'unhide') {
+        setappopenloader(true);
+      }
+    }
+  };
+  
   useEffect(() => {
     (async () => {
       try {
+        AppState.addEventListener('change', handleAppStateChange);
         await analytics().logEvent('add_bp_screen');
         let lan = await lang();
         setlanguage(lan);
@@ -120,6 +138,7 @@ export default function BloodPressure({navigation}: {navigation: any}) {
       }
     })();
   }, [isFocused]);
+
 
   useEffect(() => {
     adjustBar();
@@ -130,7 +149,7 @@ export default function BloodPressure({navigation}: {navigation: any}) {
   }, [language]);
 
   const onChangeTime = (event: DateTimePickerEvent, value: any) => {
-    const {type} = event;
+    const { type } = event;
     setTimePicker(false);
     if (type === 'set') {
       setTime(value);
@@ -182,15 +201,15 @@ export default function BloodPressure({navigation}: {navigation: any}) {
   const _continue = async () => {
     try {
       setcloseloader(false);
-      if(save == true) {
+      if (save == true) {
         setsave(false);
         navigation.navigate('BpResultScreen');
-      } else{
-        navigation.navigate('HomeScreen', {tab: 'home'});
+      } else {
+        navigation.navigate('HomeScreen', { tab: 'home' });
       }
-    } catch(e) {
+    } catch (e) {
       console.log('catch error', e);
-      return ;
+      return;
     }
   };
   return (
@@ -235,14 +254,14 @@ export default function BloodPressure({navigation}: {navigation: any}) {
             />
           </View>
 
-          <View style={{marginTop: 20}}>
+          <View style={{ marginTop: 20 }}>
             <Text style={styles.pressurelevel}>{pressurelevel}</Text>
             <Image
               style={styles.scale}
               source={require('../../assets/images/barchart.png')}
             />
             <Image
-              style={[styles.pointerIndicator, {left: `${chartPercentage}%`}]}
+              style={[styles.pointerIndicator, { left: `${chartPercentage}%` }]}
               source={require('../../assets/images/polygon.png')}
             />
           </View>
@@ -253,13 +272,13 @@ export default function BloodPressure({navigation}: {navigation: any}) {
           <Text
             style={[
               styles.title,
-              {fontWeight: '300', fontSize: 13, alignSelf: 'center', textTransform: 'lowercase'},
+              { fontWeight: '300', fontSize: 13, alignSelf: 'center', textTransform: 'lowercase' },
             ]}>
             {note != '' ? `1 ${langstr.main.note}` : ''}
           </Text>
           <TouchableOpacity onPress={() => setshowremarksmodal(true)}>
             <Image
-              style={{width: 32, height: 32}}
+              style={{ width: 32, height: 32 }}
               source={require('../../assets/images/add_btn_new.png')}
             />
           </TouchableOpacity>
@@ -294,8 +313,19 @@ export default function BloodPressure({navigation}: {navigation: any}) {
         />
       )}
 
-    {save && (<DisplayAd _continue={_continue} adId={INTERSITIAL_AD_ID}/>)}
-    {closeloader && (<ExitModel setcloseloader={setcloseloader} navigation={navigation} />)}
+      {save && (<DisplayAd _continue={_continue} adId={INTERSITIAL_AD_ID} />)}
+      {closeloader && (<ExitModel setcloseloader={setcloseloader} navigation={navigation} />)}
+      {appopenloader && (<View
+        style={{
+          width: width,
+          height: '100%',
+          backgroundColor: '#fff',
+          position: 'absolute',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text style={{ fontWeight: '600', fontSize: 16, fontFamily: 'Montserrat-Bold', fontStyle: 'normal' }}>Loading Ad ...</Text>
+      </View>)}
     </>
   );
 }

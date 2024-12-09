@@ -8,11 +8,12 @@ import {
   Dimensions,
   BackHandler,
   ActivityIndicator,
+  AppState
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import LoadingAnimation from '../../components/LoadingAnimation';
 import BMIPicker from './components/BMIPicker';
-import {Banner, INTERSITIAL_AD_ID} from '../../Helper/AdManager';
+import { Banner, INTERSITIAL_AD_ID } from '../../Helper/AdManager';
 import {
   // add_bmi_report,
   get_async_data,
@@ -20,18 +21,18 @@ import {
 } from '../../Helper/AppHelper';
 import moment from 'moment';
 import analytics from '@react-native-firebase/analytics';
-import {lang} from '../../../global';
+import { lang } from '../../../global';
 import DisplayAd from '../../components/DisplayAd';
 import SaveButton from '../../components/SaveButton';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 const ITEM_WIDTH = width / 2 - 30;
 const RATIO = ITEM_WIDTH / 592;
 
 const itemWidth = width - 80;
 const ratio = itemWidth / 1140;
 
-const BmiRecordScreen = ({navigation}: {navigation: any}) => {
+const BmiRecordScreen = ({ navigation }: { navigation: any }) => {
   const [card, setcard] = useState('male');
   const [weight, setweight] = useState(70);
   const [height, setheight] = useState(172);
@@ -41,8 +42,9 @@ const BmiRecordScreen = ({navigation}: {navigation: any}) => {
   const [bmi, setbmi] = useState(23.66);
   const [closeloader, setcloseloader] = useState(false);
   const [save, setsave] = useState(false);
+  const [appopenloader, setappopenloader] = useState(false);
   const [language, setlanguage] = useState({
-    dashobard: {bmi: ''},
+    dashobard: { bmi: '' },
     main: {
       male: '',
       female: '',
@@ -52,7 +54,7 @@ const BmiRecordScreen = ({navigation}: {navigation: any}) => {
     },
   });
   const [langstr, setlangstr] = useState({
-    dashobard: {bmi: ''},
+    dashobard: { bmi: '' },
     main: {
       male: '',
       female: '',
@@ -61,6 +63,20 @@ const BmiRecordScreen = ({navigation}: {navigation: any}) => {
       calculatebmi: '',
     },
   });
+
+  const handleAppStateChange = async (nextAppState: any) => {
+    let adStatus = await get_async_data('hide_ad');
+    if (nextAppState === 'active') {
+      if (adStatus == 'hide') {
+        // await set_async_data('hide_ad', 'unhide');
+        // settrayad(false);
+        console.log('not show app open at this time');
+      }
+      if (adStatus == 'unhide') {
+        setappopenloader(true);
+      }
+    }
+  };
 
   const calculateBMI = (weight: any, height: any) => {
     // Convert height to meters
@@ -122,6 +138,7 @@ const BmiRecordScreen = ({navigation}: {navigation: any}) => {
   useEffect(() => {
     (async () => {
       try {
+        AppState.addEventListener('change', handleAppStateChange);
         await analytics().logEvent('add_bmi_screen');
         let lan = await lang();
         setlanguage(lan);
@@ -149,7 +166,7 @@ const BmiRecordScreen = ({navigation}: {navigation: any}) => {
         setsave(false);
         navigation.navigate('BmiResultScreen');
       } else {
-        navigation.navigate('HomeScreen', {tab: 'home'});
+        navigation.navigate('HomeScreen', { tab: 'home' });
       }
     } catch (e) {
       console.log('catch error', e);
@@ -159,15 +176,15 @@ const BmiRecordScreen = ({navigation}: {navigation: any}) => {
 
   return (
     <>
-      <View style={{flex: 1, backgroundColor: '#fff'}}>
+      <View style={{ flex: 1, backgroundColor: '#fff' }}>
         <View style={styles.header}>
           <View style={styles.col}>
             <TouchableOpacity
-              style={{paddingHorizontal: 20, paddingVertical: 25}}
+              style={{ paddingHorizontal: 20, paddingVertical: 25 }}
               onPress={() => setcloseloader(true)}
               accessibilityLabel="Back">
               <Image
-                style={{width: 14, height: 14}}
+                style={{ width: 14, height: 14 }}
                 source={require('../../assets/images/dashboard_icons/navigate_back_new.png')}
               />
             </TouchableOpacity>
@@ -187,7 +204,7 @@ const BmiRecordScreen = ({navigation}: {navigation: any}) => {
               <Text
                 style={[
                   styles.cardText,
-                  card == 'male' ? {color: '#fff'} : {color: '#2E2E2E'},
+                  card == 'male' ? { color: '#fff' } : { color: '#2E2E2E' },
                 ]}>
                 {langstr.main.male}
               </Text>
@@ -204,7 +221,7 @@ const BmiRecordScreen = ({navigation}: {navigation: any}) => {
               <Text
                 style={[
                   styles.cardText,
-                  card == 'female' ? {color: '#fff'} : {color: '#2E2E2E'},
+                  card == 'female' ? { color: '#fff' } : { color: '#2E2E2E' },
                 ]}>
                 {langstr.main.female}
               </Text>
@@ -218,14 +235,14 @@ const BmiRecordScreen = ({navigation}: {navigation: any}) => {
           langstr={langstr}
         />
 
-        <View style={{marginVertical: 30}}>
+        <View style={{ marginVertical: 30 }}>
           <Text style={styles.pressurelevel}>{pressurelevel}</Text>
           <Image
             style={styles.scale}
             source={require('../../assets/images/bmichart.png')}
           />
           <Image
-            style={[styles.pointerIndicator, {left: `${chartPercentage}%`}]}
+            style={[styles.pointerIndicator, { left: `${chartPercentage}%` }]}
             source={require('../../assets/images/polygon.png')}
           />
         </View>
@@ -233,7 +250,7 @@ const BmiRecordScreen = ({navigation}: {navigation: any}) => {
           <ActivityIndicator
             size={`small`}
             color={`#000000`}
-            style={{marginTop: 40}}
+            style={{ marginTop: 40 }}
           />
         ) : (
           <SaveButton
@@ -248,7 +265,18 @@ const BmiRecordScreen = ({navigation}: {navigation: any}) => {
       </View>
       <Banner />
       {/* {loader && <LoadingAnimation iconType={'tick'} />} */}
-      {closeloader == true|| save == true ? (<DisplayAd _continue={_continue} adId={INTERSITIAL_AD_ID}/>) : (<></>)}
+      {closeloader == true || save == true ? (<DisplayAd _continue={_continue} adId={INTERSITIAL_AD_ID} />) : (<></>)}
+      {appopenloader && (<View
+        style={{
+          width: width,
+          height: '100%',
+          backgroundColor: '#fff',
+          position: 'absolute',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text style={{ fontWeight: '600', fontSize: 16, fontFamily: 'Montserrat-Bold', fontStyle: 'normal' }}>Loading Ad ...</Text>
+      </View>)}
     </>
   );
 };
